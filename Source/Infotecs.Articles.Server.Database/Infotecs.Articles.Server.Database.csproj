@@ -4,4 +4,8 @@
         <TargetFramework>netstandard2.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Infotecs.Articles.Server.Domain\Infotecs.Articles.Server.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

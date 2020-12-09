@@ -7,9 +7,9 @@ package articles;
 service Articles {
 	rpc ListArticles(EmptyRequest) returns (ListArticlesReply);
 	rpc ShowArticle(ShowArticleRequest) returns (ShowArticleReply);
-	rpc CreateArticle(CreateArticleRequest) returns (Article);
+	rpc CreateArticle(CreateArticleRequest) returns (ArticleModel);
 	rpc DeleteArticle(DeleteArticleRequest) returns (EmptyReply);
-	rpc AddComment(AddCommentRequest) returns (Comment);
+	rpc AddComment(AddCommentRequest) returns (CommentModel);
 }
 
 message EmptyRequest {}
@@ -35,7 +35,7 @@ message AddCommentRequest {
 	string content = 3;
 }
 
-message Article {
+message ArticleModel {
 	int64 articleId = 1;
 	string user = 2;
 	string title = 3;
@@ -43,7 +43,7 @@ message Article {
 	bytes thumbnailImage = 5;
 }
 
-message Comment {
+message CommentModel {
 	int64 commentId = 1;
 	int64 articleId = 2;
 	string user = 3;
@@ -51,12 +51,12 @@ message Comment {
 }
 
 message ShowArticleReply {
-	Article article = 1;
-	repeated Comment comments = 2;
+	ArticleModel article = 1;
+	repeated CommentModel comments = 2;
 }
 
 message ListArticlesReply {
-	repeated Article articles = 1;
+	repeated ArticleModel articles = 1;
 }
 
 message EmptyReply {}

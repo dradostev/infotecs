@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infotecs.Articles.Server.Application.Services;
+using Infotecs.Articles.Server.Database;
+using Infotecs.Articles.Server.Database.Repostories;
+using Infotecs.Articles.Server.Domain.Entities;
+using Infotecs.Articles.Server.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Infotecs.Articles.Server.Application
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(builder => builder.AddSerilog());
             services.AddGrpc();
-        }
+            services.AddGrpcReflection();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            services.AddSingleton<InMemoryDb>();
+            services.AddScoped<IRepository<Article>, ArticlesInMemoryRepository>();
+        }
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -31,7 +39,12 @@ namespace Infotecs.Articles.Server.Application
 
             app.UseEndpoints(endpoints =>
             {
-               // endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<ArticlesService>();
+
+                if (env.IsDevelopment())
+                {
+                    endpoints.MapGrpcReflectionService();
+                }
 
                 endpoints.MapGet("/",
                     async context =>
