@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Application", "Source\Infotecs.Articles.Server.Application\Infotecs.Articles.Server.Application.csproj", "{FCB1DD64-15BC-4F09-8F15-5CCEFF321F25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Domain", "Source\Infotecs.Articles.Server.Domain\Infotecs.Articles.Server.Domain.csproj", "{A77A547F-A27B-4899-AD74-065B5FC469CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Database", "Source\Infotecs.Articles.Server.Database\Infotecs.Articles.Server.Database.csproj", "{AABD081E-C445-4D35-9706-7465FDFF4F02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{FCB1DD64-15BC-4F09-8F15-5CCEFF321F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCB1DD64-15BC-4F09-8F15-5CCEFF321F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCB1DD64-15BC-4F09-8F15-5CCEFF321F25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A77A547F-A27B-4899-AD74-065B5FC469CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77A547F-A27B-4899-AD74-065B5FC469CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77A547F-A27B-4899-AD74-065B5FC469CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77A547F-A27B-4899-AD74-065B5FC469CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
