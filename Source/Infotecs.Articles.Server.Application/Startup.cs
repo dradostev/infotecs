@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Infotecs.Articles.Server.Application.Services;
 using Infotecs.Articles.Server.Database;
 using Infotecs.Articles.Server.Database.Repostories;
@@ -23,9 +24,17 @@ namespace Infotecs.Articles.Server.Application
             services.AddLogging(builder => builder.AddSerilog());
             services.AddGrpc();
             services.AddGrpcReflection();
+        }
 
-            services.AddSingleton<InMemoryDb>();
-            services.AddScoped<IRepository<Article>, ArticlesInMemoryRepository>();
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder
+                .RegisterType<InMemoryDb>()
+                .SingleInstance();
+            
+            builder
+                .RegisterType<ArticlesInMemoryRepository>()
+                .As<IRepository<Article>>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
