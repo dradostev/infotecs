@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using Infotecs.Articles.Server.Domain.Entities;
@@ -20,17 +21,25 @@ namespace Infotecs.Articles.Server.Application.Services
             this.articleRepository = articleRepository;
         }
         
-        public override Task<ArticleModel> CreateArticle(CreateArticleRequest request, ServerCallContext context)
+        public override async Task<ArticleModel> CreateArticle(CreateArticleRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Create Article Request");
-            return base.CreateArticle(request, context);
+            var article = await articleRepository.CreateAsync(
+                new Article(
+                    request.User, request.Title, request.Content, request.ThumbnailImage.ToByteArray()));
+
+            return new ArticleModel
+            {
+                ArticleId = article.Id,
+                Content = article.Content,
+                Title = article.Title,
+                ThumbnailImage = ByteString.CopyFrom(article.Thumbnail),
+                User = article.Username
+            };
         }
 
         public override async Task<ListArticlesReply> ListArticles(EmptyRequest request, ServerCallContext context)
         {
-            logger.LogInformation("List Articles Request");
-
-            var articles = await articleRepository.List();
+            var articles = await articleRepository.ListAsync();
 
             return await Task.FromResult(new ListArticlesReply
             {
@@ -38,25 +47,46 @@ namespace Infotecs.Articles.Server.Application.Services
                 {
                     new RepeatedField<ArticleModel>
                     {
-                        articles.Select(x => new ArticleModel
+                        articles.Select(article => new ArticleModel
                         {
-                            ArticleId = x.Id,
-                            Title = x.Title,
-                            Content = x.Content
+                            ArticleId = article.Id,
+                            Content = article.Content,
+                            Title = article.Title,
+                            ThumbnailImage = ByteString.CopyFrom(article.Thumbnail),
+                            User = article.Username
                         })
                     }
                 }
             });
         }
 
-        public override Task<ShowArticleReply> ShowArticle(ShowArticleRequest request, ServerCallContext context)
+        public override async Task<ShowArticleReply> ShowArticle(ShowArticleRequest request, ServerCallContext context)
         {
-            return base.ShowArticle(request, context);
+            var article = await articleRepository.ShowAsync(request.ArticleId);
+
+            if (article is null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, "Article not found"));
+            }
+            
+            return new ShowArticleReply
+            {
+                Article = new ArticleModel
+                {
+                    ArticleId = article.Id,
+                    Content = article.Content,
+                    Title = article.Title,
+                    ThumbnailImage = ByteString.CopyFrom(article.Thumbnail),
+                    User = article.Username
+                }
+            };
         }
 
-        public override Task<EmptyReply> DeleteArticle(DeleteArticleRequest request, ServerCallContext context)
+        public override async Task<EmptyReply> DeleteArticle(DeleteArticleRequest request, ServerCallContext context)
         {
-            return base.DeleteArticle(request, context);
+            await articleRepository.DeleteAsync(request.ArticleId);
+
+            return new EmptyReply();
         }
 
         public override Task<CommentModel> AddComment(AddCommentRequest request, ServerCallContext context)

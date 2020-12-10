@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Autofac;
 using Infotecs.Articles.Server.Application.Services;
 using Infotecs.Articles.Server.Database;
-using Infotecs.Articles.Server.Database.Repostories;
+using Infotecs.Articles.Server.Database.Repositories;
 using Infotecs.Articles.Server.Domain.Entities;
 using Infotecs.Articles.Server.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -19,6 +20,13 @@ namespace Infotecs.Articles.Server.Application
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging(builder => builder.AddSerilog());
@@ -29,11 +37,8 @@ namespace Infotecs.Articles.Server.Application
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder
-                .RegisterType<InMemoryDb>()
-                .SingleInstance();
-            
-            builder
-                .RegisterType<ArticlesInMemoryRepository>()
+                .Register(x =>
+                    new ArticlesRepository(Configuration.GetConnectionString("Postgres")))
                 .As<IRepository<Article>>();
         }
         

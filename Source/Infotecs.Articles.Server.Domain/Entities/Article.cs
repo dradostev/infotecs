@@ -7,13 +7,13 @@ namespace Infotecs.Articles.Server.Domain.Entities
     {
         public long Id { get; private set; }
 
-        public string User { get; private set; }
+        public string Username { get; private set; }
 
         public string Title { get; private set; }
 
         public string Content { get; private set; }
 
-        public Uri Thumbnail { get; private set; }
+        public byte[] Thumbnail { get; private set; }
 
         public IEnumerable<Comment> Comments { get; private set; }
 
@@ -21,9 +21,9 @@ namespace Infotecs.Articles.Server.Domain.Entities
         {
         }
 
-        public Article(string user, string title, string content, Uri thumbnail)
+        public Article(string username, string title, string content, byte[] thumbnail)
         {
-            User = user;
+            Username = username;
             Title = title;
             Content = content;
             Thumbnail = thumbnail;

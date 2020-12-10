@@ -4,7 +4,7 @@
     {
         public long Id { get; private set; }
 
-        public string User { get; private set; }
+        public string Username { get; private set; }
 
         public string Content { get; private set; }
 
@@ -12,9 +12,9 @@
         {
         }
 
-        public Comment(string user, string content)
+        public Comment(string username, string content)
         {
-            User = user;
+            Username = username;
             Content = content;
         }
     }

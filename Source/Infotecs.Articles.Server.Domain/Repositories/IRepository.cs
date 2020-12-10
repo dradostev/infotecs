@@ -5,9 +5,9 @@ namespace Infotecs.Articles.Server.Domain.Repositories
 {
     public interface IRepository<T>
     {
-        Task<T> Show(long entityId);
-        Task<IEnumerable<T>> List();
-        Task<T> Create(T entity);
-        Task Delete(long entityId);
+        Task<T> ShowAsync(long entityId);
+        Task<IEnumerable<T>> ListAsync();
+        Task<T> CreateAsync(T entity);
+        Task DeleteAsync(long entityId);
     }
 }
