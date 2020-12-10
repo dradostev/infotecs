@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using FluentValidation;
 using Infotecs.Articles.Server.Application.Services;
+using Infotecs.Articles.Server.Application.Validators;
 using Infotecs.Articles.Server.Database;
 using Infotecs.Articles.Server.Database.Repositories;
 using Infotecs.Articles.Server.Domain.Entities;
@@ -45,6 +47,17 @@ namespace Infotecs.Articles.Server.Application
                 .Register(x =>
                     new CommentsRepository(Configuration.GetConnectionString("Postgres")))
                 .As<ICommentsRepository>();
+
+            builder
+                .RegisterAssemblyTypes(GetType().Assembly)
+                .Where(x => x.Name.EndsWith("Validator"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<AutofacValidatorFactory>()
+                .As<IValidatorFactory>()
+                .SingleInstance();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

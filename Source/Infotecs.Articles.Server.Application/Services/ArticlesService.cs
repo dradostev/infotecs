@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using Infotecs.Articles.Server.Domain.Entities;
 using Infotecs.Articles.Server.Domain.Repositories;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 namespace Infotecs.Articles.Server.Application.Services
 {
@@ -14,19 +16,32 @@ namespace Infotecs.Articles.Server.Application.Services
         private readonly ILogger<ArticlesService> logger;
         private readonly IArticlesRepository articlesRepository;
         private readonly ICommentsRepository commentsRepository;
+        private readonly IValidatorFactory validatorFactory;
 
         public ArticlesService(
             ILogger<ArticlesService> logger,
             IArticlesRepository articlesRepository,
-            ICommentsRepository commentsRepository)
+            ICommentsRepository commentsRepository,
+            IValidatorFactory validatorFactory)
         {
             this.logger = logger;
             this.articlesRepository = articlesRepository;
             this.commentsRepository = commentsRepository;
+            this.validatorFactory = validatorFactory;
         }
         
         public override async Task<ArticleModel> CreateArticle(CreateArticleRequest request, ServerCallContext context)
         {
+            var validator = validatorFactory.GetValidator<CreateArticleRequest>();
+
+            var result = await validator.ValidateAsync(request);
+
+            if (!result.IsValid)
+            {
+                throw new RpcException(
+                    new Status(StatusCode.InvalidArgument, "Validation error"));
+            }
+
             var article = await articlesRepository.CreateAsync(
                 new Article(
                     request.User, request.Title, request.Content, request.ThumbnailImage.ToByteArray()));
@@ -112,6 +127,16 @@ namespace Infotecs.Articles.Server.Application.Services
 
         public override async Task<CommentModel> AddComment(AddCommentRequest request, ServerCallContext context)
         {
+            var validator = validatorFactory.GetValidator<AddCommentRequest>();
+
+            var result = await validator.ValidateAsync(request);
+
+            if (!result.IsValid)
+            {
+                throw new RpcException(
+                    new Status(StatusCode.InvalidArgument, "Validation error"));
+            }
+            
             var comment = await commentsRepository.CreateAsync(
                 new Comment(request.ArticleId, request.User, request.Content));
 
