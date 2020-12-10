@@ -15,7 +15,7 @@ namespace Infotecs.Articles.Server.Domain.Entities
 
         public byte[] Thumbnail { get; private set; }
 
-        public IEnumerable<Comment> Comments { get; private set; }
+        public IList<Comment> Comments { get; private set; } = new List<Comment>();
 
         private Article()
         {

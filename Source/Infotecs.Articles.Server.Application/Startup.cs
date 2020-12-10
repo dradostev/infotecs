@@ -39,7 +39,12 @@ namespace Infotecs.Articles.Server.Application
             builder
                 .Register(x =>
                     new ArticlesRepository(Configuration.GetConnectionString("Postgres")))
-                .As<IRepository<Article>>();
+                .As<IArticlesRepository>();
+            
+            builder
+                .Register(x =>
+                    new CommentsRepository(Configuration.GetConnectionString("Postgres")))
+                .As<ICommentsRepository>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

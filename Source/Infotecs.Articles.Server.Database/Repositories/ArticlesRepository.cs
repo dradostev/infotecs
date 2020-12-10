@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Infotecs.Articles.Server.Domain.Entities;
@@ -9,7 +10,7 @@ using Npgsql;
 
 namespace Infotecs.Articles.Server.Database.Repositories
 {
-    public class ArticlesRepository : IRepository<Article>
+    public class ArticlesRepository : IArticlesRepository
     {
         private readonly string connectionString;
 
@@ -20,13 +21,25 @@ namespace Infotecs.Articles.Server.Database.Repositories
 
         private IDbConnection DbConnection => new NpgsqlConnection(connectionString);
         
-        public async Task<Article> ShowAsync(long entityId)
+        public async Task<Article> ShowAsync(long articleId)
         {
             using var connection = DbConnection;
             connection.Open();
 
-            var article = await connection.QuerySingleOrDefaultAsync<Article>(
-                @"select * from articles where id = @Id", new { Id = entityId });
+            Article article = null;
+
+            await connection.QueryAsync<Article, Comment, Article>(
+                @"select articles.*, comments.* from articles
+                     inner join comments on articles.id = comments.article_id 
+                     where articles.id = @Id",
+                param: new { @Id = articleId },
+                map: ((a, c) =>
+                {
+                    article ??= a;
+                    article.Comments.Add(c);
+                    return article;
+                }),
+                splitOn: "article_id");
 
             return article;
         }
@@ -59,13 +72,15 @@ namespace Infotecs.Articles.Server.Database.Repositories
             return article;
         }
 
-        public async Task DeleteAsync(long entityId)
+        public async Task<bool> DeleteAsync(long articleId)
         {
             using var connection = DbConnection;
             connection.Open();
 
-            await connection.ExecuteAsync(
-                @"delete from articles where id = @Id", new { Id = entityId });
+            var rows = await connection.ExecuteAsync(
+                @"delete from articles where id = @Id", new { Id = articleId });
+
+            return rows != 0;
         }
     }
 }

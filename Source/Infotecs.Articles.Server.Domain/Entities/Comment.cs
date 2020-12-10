@@ -4,6 +4,8 @@
     {
         public long Id { get; private set; }
 
+        public long ArticleId { get; private set; }
+
         public string Username { get; private set; }
 
         public string Content { get; private set; }
@@ -12,8 +14,9 @@
         {
         }
 
-        public Comment(string username, string content)
+        public Comment(long articleId, string username, string content)
         {
+            ArticleId = articleId;
             Username = username;
             Content = content;
         }
