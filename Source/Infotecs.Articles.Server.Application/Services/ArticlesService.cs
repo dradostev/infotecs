@@ -7,7 +7,6 @@ using Grpc.Core;
 using Infotecs.Articles.Server.Domain.Entities;
 using Infotecs.Articles.Server.Domain.Repositories;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 
 namespace Infotecs.Articles.Server.Application.Services
 {
@@ -38,6 +37,7 @@ namespace Infotecs.Articles.Server.Application.Services
 
             if (!result.IsValid)
             {
+                logger.LogInformation($"Validation error occurred");
                 throw new RpcException(
                     new Status(StatusCode.InvalidArgument, "Validation error"));
             }
@@ -105,7 +105,7 @@ namespace Infotecs.Articles.Server.Application.Services
                     {
                         article.Comments.Select(comment => new CommentModel
                         {
-                            CommentId = comment.Id,
+                            CommentId = comment.CommentId,
                             ArticleId = comment.ArticleId,
                             User = comment.Username,
                             Content = comment.Content
@@ -119,6 +119,7 @@ namespace Infotecs.Articles.Server.Application.Services
         {
             if (!await articlesRepository.DeleteAsync(request.ArticleId))
             {
+                logger.LogInformation($"Article ID#{request.ArticleId} wasn't found");
                 throw new RpcException(new Status(StatusCode.NotFound, "Article wasn't not found"));
             }
 
@@ -133,6 +134,7 @@ namespace Infotecs.Articles.Server.Application.Services
 
             if (!result.IsValid)
             {
+                logger.LogInformation($"Validation error occurred");
                 throw new RpcException(
                     new Status(StatusCode.InvalidArgument, "Validation error"));
             }
@@ -142,7 +144,7 @@ namespace Infotecs.Articles.Server.Application.Services
 
             return new CommentModel
             {
-                CommentId = comment.Id,
+                CommentId = comment.CommentId,
                 ArticleId = comment.ArticleId,
                 Content = comment.Content,
                 User = comment.Username

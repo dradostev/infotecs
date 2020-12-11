@@ -29,9 +29,12 @@ namespace Infotecs.Articles.Server.Database.Repositories
             Article article = null;
 
             await connection.QueryAsync<Article, Comment, Article>(
-                @"select articles.*, comments.* from articles
-                     inner join comments on articles.id = comments.article_id 
-                     where articles.id = @Id",
+                @"select
+                        articles.*,
+                        comments.id CommentId, comments.article_id,
+                        comments.username, comments.content
+                    from articles inner join comments on articles.id = comments.article_id
+                    where articles.id = @Id",
                 param: new { @Id = articleId },
                 map: ((a, c) =>
                 {

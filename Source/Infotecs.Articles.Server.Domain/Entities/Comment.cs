@@ -2,7 +2,7 @@
 {
     public class Comment
     {
-        public long Id { get; private set; }
+        public long CommentId { get; private set; }
 
         public long ArticleId { get; private set; }
 

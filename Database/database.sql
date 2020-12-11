@@ -6,7 +6,7 @@
     username varchar(255) not null,
     title varchar(255) not null,
     content text not null,
-    thumbnail_url text not null
+    thumbnail bytea not null
 );
 
 create unique index articles_id_uindex 
