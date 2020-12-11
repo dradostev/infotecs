@@ -1,29 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
-using Infotecs.Articles.Server.Domain.Entities;
-using Infotecs.Articles.Server.Domain.Repositories;
-using Npgsql;
-
-namespace Infotecs.Articles.Server.Database.Repositories
+﻿namespace Infotecs.Articles.Server.Database.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Dapper;
+    using Infotecs.Articles.Server.Domain.Entities;
+    using Infotecs.Articles.Server.Domain.Repositories;
+    using Npgsql;
+
     public class ArticlesRepository : IArticlesRepository
     {
         private readonly string connectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticlesRepository"/> class.
+        /// </summary>
+        /// <param name="connectionString">Connection string for PostgreSQL database.</param>
         public ArticlesRepository(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        private IDbConnection DbConnection => new NpgsqlConnection(connectionString);
-        
+        private IDbConnection DbConnection => new NpgsqlConnection(this.connectionString);
+
+        /// <inheritdoc/>
         public async Task<Article> ShowAsync(long articleId)
         {
-            using var connection = DbConnection;
+            using var connection = this.DbConnection;
             connection.Open();
 
             Article article = null;
@@ -36,20 +41,21 @@ namespace Infotecs.Articles.Server.Database.Repositories
                     from articles inner join comments on articles.id = comments.article_id
                     where articles.id = @Id",
                 param: new { @Id = articleId },
-                map: ((a, c) =>
+                map: (a, c) =>
                 {
                     article ??= a;
                     article.Comments.Add(c);
                     return article;
-                }),
+                },
                 splitOn: "article_id");
 
             return article;
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<Article>> ListAsync()
         {
-            using var connection = DbConnection;
+            using var connection = this.DbConnection;
             connection.Open();
 
             var articles = await connection.QueryAsync<Article>(
@@ -58,9 +64,10 @@ namespace Infotecs.Articles.Server.Database.Repositories
             return articles;
         }
 
+        /// <inheritdoc/>
         public async Task<Article> CreateAsync(Article entity)
         {
-            using var connection = DbConnection;
+            using var connection = this.DbConnection;
             connection.Open();
 
             var articleId = await connection.ExecuteScalarAsync<long>(
@@ -75,9 +82,10 @@ namespace Infotecs.Articles.Server.Database.Repositories
             return article;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DeleteAsync(long articleId)
         {
-            using var connection = DbConnection;
+            using var connection = this.DbConnection;
             connection.Open();
 
             var rows = await connection.ExecuteAsync(
