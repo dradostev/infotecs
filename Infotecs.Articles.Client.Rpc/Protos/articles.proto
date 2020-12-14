@@ -1,0 +1,62 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Infotecs.Articles.Client.Rpc";
+
+package articles;
+
+service Articles {
+	rpc ListArticles(EmptyRequest) returns (ListArticlesReply);
+	rpc ShowArticle(ShowArticleRequest) returns (ShowArticleReply);
+	rpc CreateArticle(CreateArticleRequest) returns (ArticleModel);
+	rpc DeleteArticle(DeleteArticleRequest) returns (EmptyReply);
+	rpc AddComment(AddCommentRequest) returns (CommentModel);
+}
+
+message EmptyRequest {}
+
+message ShowArticleRequest {
+	int64 articleId = 1;
+}
+
+message CreateArticleRequest {
+	string user = 1;
+	string title = 2;
+	string content = 3;
+	bytes thumbnailImage = 4;
+}
+
+message DeleteArticleRequest {
+	int64 articleId = 2;
+}
+
+message AddCommentRequest {
+	string user = 1;
+	int64 articleId = 2;
+	string content = 3;
+}
+
+message ArticleModel {
+	int64 articleId = 1;
+	string user = 2;
+	string title = 3;
+	string content = 4;
+	bytes thumbnailImage = 5;
+}
+
+message CommentModel {
+	int64 commentId = 1;
+	int64 articleId = 2;
+	string user = 3;
+	string content = 4;
+}
+
+message ShowArticleReply {
+	ArticleModel article = 1;
+	repeated CommentModel comments = 2;
+}
+
+message ListArticlesReply {
+	repeated ArticleModel articles = 1;
+}
+
+message EmptyReply {}
