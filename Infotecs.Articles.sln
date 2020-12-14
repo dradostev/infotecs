@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Database", "Source\Infotecs.Articles.Server.Database\Infotecs.Articles.Server.Database.csproj", "{AABD081E-C445-4D35-9706-7465FDFF4F02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Application.Tests", "Source\Infotecs.Articles.Server.Application.Tests\Infotecs.Articles.Server.Application.Tests.csproj", "{17DAEBFE-0837-436B-8F72-0B01F2F6DC68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AABD081E-C445-4D35-9706-7465FDFF4F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17DAEBFE-0837-436B-8F72-0B01F2F6DC68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DAEBFE-0837-436B-8F72-0B01F2F6DC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17DAEBFE-0837-436B-8F72-0B01F2F6DC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17DAEBFE-0837-436B-8F72-0B01F2F6DC68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

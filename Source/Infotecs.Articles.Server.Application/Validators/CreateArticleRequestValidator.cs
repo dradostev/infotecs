@@ -12,10 +12,10 @@
         /// </summary>
         public CreateArticleRequestValidator()
         {
-            RuleFor(x => x.User).NotEmpty().MinimumLength(3);
-            RuleFor(x => x.Title).NotEmpty().MinimumLength(3);
-            RuleFor(x => x.Content).NotEmpty().MinimumLength(10);
-            RuleFor(x => x.ThumbnailImage).NotNull().NotEmpty();
+            this.RuleFor(x => x.User).NotEmpty().MinimumLength(3);
+            this.RuleFor(x => x.Title).NotEmpty().MinimumLength(3);
+            this.RuleFor(x => x.Content).NotEmpty().MinimumLength(10);
+            this.RuleFor(x => x.ThumbnailImage).NotNull().NotEmpty();
         }
     }
 }
