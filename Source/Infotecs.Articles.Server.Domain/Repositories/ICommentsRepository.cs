@@ -4,6 +4,9 @@
     using System.Threading.Tasks;
     using Infotecs.Articles.Server.Domain.Entities;
 
+    /// <summary>
+    /// Comments database repository interface.
+    /// </summary>
     public interface ICommentsRepository
     {
         /// <summary>
@@ -21,7 +24,7 @@
         Task<Comment> CreateAsync(Comment entity);
 
         /// <summary>
-        ///
+        /// Asynchronously deletes a Comment by ID.
         /// </summary>
         /// <param name="commentId">ID of Comment entity.</param>
         /// <returns>Boolean result if operation was successful.</returns>

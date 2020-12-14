@@ -3,24 +3,11 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Comment is an entity user can create and write things in.
+    /// </summary>
     public class Article
     {
-        public long Id { get; private set; }
-
-        public string Username { get; private set; }
-
-        public string Title { get; private set; }
-
-        public string Content { get; private set; }
-
-        public byte[] Thumbnail { get; private set; }
-
-        public IList<Comment> Comments { get; private set; } = new List<Comment>();
-
-        private Article()
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Article"/> class.
         /// </summary>
@@ -30,10 +17,44 @@
         /// <param name="thumbnail">Article preview image as a byte array.</param>
         public Article(string username, string title, string content, byte[] thumbnail)
         {
-            Username = username;
-            Title = title;
-            Content = content;
-            Thumbnail = thumbnail;
+            this.Username = username;
+            this.Title = title;
+            this.Content = content;
+            this.Thumbnail = thumbnail;
         }
+
+        private Article()
+        {
+        }
+
+        /// <summary>
+        /// Gets database primary key
+        /// </summary>
+        public long Id { get; private set; }
+
+        /// <summary>
+        /// Gets a user who created Article
+        /// </summary>
+        public string Username { get; private set; }
+
+        /// <summary>
+        /// Gets Article title
+        /// </summary>
+        public string Title { get; private set; }
+
+        /// <summary>
+        /// Gets text content of the Article
+        /// </summary>
+        public string Content { get; private set; }
+
+        /// <summary>
+        /// Gets Article thumbnail image as byte array
+        /// </summary>
+        public byte[] Thumbnail { get; private set; }
+
+        /// <summary>
+        /// Gets collection on Comments attached to the Article
+        /// </summary>
+        public IList<Comment> Comments { get; private set; } = new List<Comment>();
     }
 }

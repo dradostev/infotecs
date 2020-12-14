@@ -1,9 +1,10 @@
-﻿using System;
-using Autofac;
-using FluentValidation;
-
-namespace Infotecs.Articles.Server.Application.Validators
+﻿namespace Infotecs.Articles.Server.Application.Validators
 {
+    using System;
+    using Autofac;
+    using FluentValidation;
+
+    /// <inheritdoc />
     public class AutofacValidatorFactory : ValidatorFactoryBase
     {
         private readonly IComponentContext context;
@@ -20,7 +21,7 @@ namespace Infotecs.Articles.Server.Application.Validators
         /// <inheritdoc/>
         public override IValidator CreateInstance(Type validatorType)
         {
-            if (context.TryResolve(validatorType, out var instance))
+            if (this.context.TryResolve(validatorType, out var instance))
             {
                 return instance as IValidator;
             }

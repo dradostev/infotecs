@@ -1,7 +1,10 @@
-﻿using FluentValidation;
-
-namespace Infotecs.Articles.Server.Application.Validators
+﻿namespace Infotecs.Articles.Server.Application.Validators
 {
+    using FluentValidation;
+
+    /// <summary>
+    /// Validator for AddCommentRequest.
+    /// </summary>
     public class AddCommentRequestValidator : AbstractValidator<AddCommentRequest>
     {
         /// <summary>
@@ -9,9 +12,9 @@ namespace Infotecs.Articles.Server.Application.Validators
         /// </summary>
         public AddCommentRequestValidator()
         {
-            RuleFor(x => x.ArticleId).NotEmpty();
-            RuleFor(x => x.User).NotEmpty().MinimumLength(3);
-            RuleFor(x => x.Content).NotEmpty().MinimumLength(10);
+            this.RuleFor(x => x.ArticleId).NotEmpty();
+            this.RuleFor(x => x.User).NotEmpty().MinimumLength(3);
+            this.RuleFor(x => x.Content).NotEmpty().MinimumLength(10);
         }
     }
 }

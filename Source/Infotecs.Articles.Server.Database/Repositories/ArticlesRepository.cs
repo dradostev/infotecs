@@ -10,6 +10,9 @@
     using Infotecs.Articles.Server.Domain.Repositories;
     using Npgsql;
 
+    /// <summary>
+    /// Articles database repository implementation.
+    /// </summary>
     public class ArticlesRepository : IArticlesRepository
     {
         private readonly string connectionString;

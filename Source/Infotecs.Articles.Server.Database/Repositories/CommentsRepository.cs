@@ -8,6 +8,9 @@
     using Infotecs.Articles.Server.Domain.Repositories;
     using Npgsql;
 
+    /// <summary>
+    /// Comments database repository implementation.
+    /// </summary>
     public class CommentsRepository : ICommentsRepository
     {
         private readonly string connectionString;

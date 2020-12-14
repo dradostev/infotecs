@@ -10,6 +10,9 @@
     using Infotecs.Articles.Server.Domain.Repositories;
     using Microsoft.Extensions.Logging;
 
+    /// <summary>
+    /// gRPC service for Articles and Comments CRUD operations.
+    /// </summary>
     public class ArticlesService : Articles.ArticlesBase
     {
         private readonly ILogger<ArticlesService> logger;

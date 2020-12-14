@@ -4,6 +4,9 @@
     using System.Threading.Tasks;
     using Infotecs.Articles.Server.Domain.Entities;
 
+    /// <summary>
+    /// Articles database repository interface.
+    /// </summary>
     public interface IArticlesRepository
     {
         /// <summary>

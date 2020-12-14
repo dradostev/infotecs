@@ -1,7 +1,10 @@
-﻿using FluentValidation;
-
-namespace Infotecs.Articles.Server.Application.Validators
+﻿namespace Infotecs.Articles.Server.Application.Validators
 {
+    using FluentValidation;
+
+    /// <summary>
+    /// Validator for CreateArticleRequest.
+    /// </summary>
     public class CreateArticleRequestValidator : AbstractValidator<CreateArticleRequest>
     {
         /// <summary>

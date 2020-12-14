@@ -1,34 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
-using FluentValidation;
-using Infotecs.Articles.Server.Application.Services;
-using Infotecs.Articles.Server.Application.Validators;
-using Infotecs.Articles.Server.Database;
-using Infotecs.Articles.Server.Database.Repositories;
-using Infotecs.Articles.Server.Domain.Entities;
-using Infotecs.Articles.Server.Domain.Repositories;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-
-namespace Infotecs.Articles.Server.Application
+﻿namespace Infotecs.Articles.Server.Application
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Autofac;
+    using FluentValidation;
+    using Infotecs.Articles.Server.Application.Services;
+    using Infotecs.Articles.Server.Application.Validators;
+    using Infotecs.Articles.Server.Database;
+    using Infotecs.Articles.Server.Database.Repositories;
+    using Infotecs.Articles.Server.Domain.Entities;
+    using Infotecs.Articles.Server.Domain.Repositories;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Serilog;
+
+    /// <summary>
+    /// ASP.NET Core startup.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Gets configuration.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">Injects configuration.</param>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
-        
+
+        /// <summary>
+        /// Validator for AddCommentRequest.
+        /// </summary>
+        /// <param name="services">Injects Microsoft DI service collection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging(builder => builder.AddSerilog());
@@ -36,16 +50,20 @@ namespace Infotecs.Articles.Server.Application
             services.AddGrpcReflection();
         }
 
+        /// <summary>
+        /// Configure Autofac DI container.
+        /// </summary>
+        /// <param name="builder">Injects Autofac container builder.</param>
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder
                 .Register(x =>
-                    new ArticlesRepository(Configuration.GetConnectionString("Postgres")))
+                    new ArticlesRepository(this.Configuration.GetConnectionString("Postgres")))
                 .As<IArticlesRepository>();
-            
+
             builder
                 .Register(x =>
-                    new CommentsRepository(Configuration.GetConnectionString("Postgres")))
+                    new CommentsRepository(this.Configuration.GetConnectionString("Postgres")))
                 .As<ICommentsRepository>();
 
             builder
@@ -59,7 +77,12 @@ namespace Infotecs.Articles.Server.Application
                 .As<IValidatorFactory>()
                 .SingleInstance();
         }
-        
+
+        /// <summary>
+        /// Configure ASP.NET Core services.
+        /// </summary>
+        /// <param name="app">Injects application builder.</param>
+        /// <param name="env">Injects hosting environment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -78,11 +101,12 @@ namespace Infotecs.Articles.Server.Application
                     endpoints.MapGrpcReflectionService();
                 }
 
-                endpoints.MapGet("/",
+                endpoints.MapGet(
+                    "/",
                     async context =>
                     {
                         await context.Response.WriteAsync(
-                            "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+                            "Communication with gRPC endpoints must be made through a gRPC client.");
                     });
             });
         }
