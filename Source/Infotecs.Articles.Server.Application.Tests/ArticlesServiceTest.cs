@@ -25,7 +25,7 @@
         /// Test article creation.
         /// </summary>
         [Fact]
-        public void CreateArticleTest()
+        public void CreateArticle_ReceivesCreateArticleRequest_ExpectsArticleModel()
         {
             var username = "user1";
             var title = "My Article 1";
@@ -80,7 +80,7 @@
         /// Test article list retrieving.
         /// </summary>
         [Fact]
-        public void ListArticleTest()
+        public void ListArticle_ReceivesEmptyRequest_ExpectsArticleModelsEnumerable()
         {
             var mockArticlesRepo = new Mock<IArticlesRepository>();
             mockArticlesRepo
@@ -138,7 +138,7 @@
         /// Test article retrieving.
         /// </summary>
         [Fact]
-        public void ShowArticleTest()
+        public void ShowArticle_ReceivesShowArticleRequest_ExpectsArticleModel()
         {
             var username = "user1";
             var title = "My Article 1";
@@ -183,7 +183,7 @@
         /// Test article deletion.
         /// </summary>
         [Fact]
-        public void DeleteArticleTest()
+        public void DeleteArticle_ReceivesDeleteArticleRequest_ExpectsEmptyReply()
         {
             var username = "user1";
             var title = "My Article 1";
@@ -225,7 +225,7 @@
         /// Test comment adding.
         /// </summary>
         [Fact]
-        public void AddCommentTest()
+        public void AddComment_ReceivesAddCommentRequest_ExpectsCommentModel()
         {
             var username = "user1";
             var title = "My Article 1";
