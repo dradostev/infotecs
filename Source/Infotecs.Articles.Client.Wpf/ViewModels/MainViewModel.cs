@@ -14,7 +14,7 @@
     /// </summary>
     public class MainViewModel : BaseViewModel
     {
-        private readonly RpcClient rpcClient;
+        private readonly IRpcClient rpcClient;
 
         private Page currentPage;
 
@@ -23,10 +23,18 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
+        /// <param name="rpcClient">RPC client for injection.</param>
+        public MainViewModel(IRpcClient rpcClient)
+        {
+            this.rpcClient = rpcClient;
+            this.CurrentPage = this.StartPage;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
         public MainViewModel()
         {
-            this.rpcClient = new RpcClient();
-            this.CurrentPage = this.StartPage;
         }
 
         /// <summary>
@@ -53,7 +61,6 @@
             set
             {
                 this.currentPage = value;
-                this.OnInit();
                 this.OnPropertyChanged();
             }
         }
@@ -95,7 +102,10 @@
             new RelayCommand(x => true, x => this.CurrentPage = this.ArticlePage);
 
 
-        private void OnInit()
+        /// <summary>
+        /// Populate MainView model with data from API.
+        /// </summary>
+        public void OnLoad()
         {
             var result = this.rpcClient.ListArticles();
 

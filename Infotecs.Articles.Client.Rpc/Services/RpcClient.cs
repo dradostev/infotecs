@@ -8,7 +8,7 @@ using Infotecs.Articles.Client.Rpc.Models;
 
 namespace Infotecs.Articles.Client.Rpc.Services
 {
-    public class RpcClient
+    public class RpcClient : IRpcClient
     {
         private const string Url = "http://localhost:5001";
 
