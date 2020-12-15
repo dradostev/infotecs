@@ -14,6 +14,8 @@
     /// </summary>
     public class MainViewModel : BaseViewModel
     {
+        private readonly RpcClient rpcClient;
+
         private Page currentPage;
 
         private ArticleViewModel selectedArticle;
@@ -23,6 +25,7 @@
         /// </summary>
         public MainViewModel()
         {
+            this.rpcClient = new RpcClient();
             this.CurrentPage = this.StartPage;
         }
 
@@ -50,7 +53,8 @@
             set
             {
                 this.currentPage = value;
-                this.OnPropertyChanged(nameof(this.CurrentPage));
+                this.OnInit();
+                this.OnPropertyChanged();
             }
         }
 
@@ -90,18 +94,15 @@
         public ICommand OpenCreateArticlePageCommand =>
             new RelayCommand(x => true, x => this.CurrentPage = this.ArticlePage);
 
-        public ICommand FetchDataCommand =>
-            new RelayCommand(
-                x => true,
-                async _ =>
-                {
-                    var rpc = new RpcClient();
-                    var result = await rpc.ListArticlesAsync();
 
-                    foreach (var article in result)
-                    {
-                        this.Articles.Add(new ArticleViewModel(article));
-                    }
-                });
+        private void OnInit()
+        {
+            var result = this.rpcClient.ListArticles();
+
+            foreach (var article in result)
+            {
+                this.Articles.Add(new ArticleViewModel(article));
+            }
+        }
     }
 }

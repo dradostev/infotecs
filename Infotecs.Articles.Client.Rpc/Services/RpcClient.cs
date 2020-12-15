@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grpc.Core;
 using Grpc.Net.Client;
 using Infotecs.Articles.Client.Rpc.Models;
 
@@ -8,15 +10,20 @@ namespace Infotecs.Articles.Client.Rpc.Services
 {
     public class RpcClient
     {
-        private const string Url = "http://localhost:5000";
+        private const string Url = "http://localhost:5001";
 
-        public async Task<IEnumerable<Article>> ListArticlesAsync()
+        public RpcClient()
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+        }
+
+        public IEnumerable<Article> ListArticles()
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
             var client = new Articles.ArticlesClient(chan);
 
-            var reply = await client.ListArticlesAsync(new EmptyRequest());
+            var reply = client.ListArticles(new EmptyRequest());
 
             return reply.Articles.Select(x => new Article
             {
@@ -26,6 +33,29 @@ namespace Infotecs.Articles.Client.Rpc.Services
                 Content = x.Content,
                 Thumbnail = x.ThumbnailImage.ToByteArray(),
             });
+        }
+
+        public Article ShowArticle(long articleId)
+        {
+            using var chan = GrpcChannel.ForAddress(Url);
+
+            var client = new Articles.ArticlesClient(chan);
+
+            try
+            {
+                var reply = client.ShowArticle(new ShowArticleRequest { ArticleId = articleId });
+                return new Article
+                {
+                    Id = reply.Article.ArticleId,
+                    Title = reply.Article.Title,
+                    Username = reply.Article.User,
+                    Content = reply.Article.Content,
+                };
+            }
+            catch (RpcException e)
+            {
+                return null;
+            }
         }
     }
 }

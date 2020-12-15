@@ -4,9 +4,26 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Infotecs.Articles.Client.Wpf.Pages"
+      xmlns:vm="clr-namespace:Infotecs.Articles.Client.Wpf.ViewModels"
       mc:Ignorable="d"
       Title="ArticlePage" Height="450" Width="800">
+    <Page.DataContext>
+        <vm:ArticlePageViewModel />
+    </Page.DataContext>
     <Grid>
-        
+        <StackPanel>
+            <TextBlock 
+                FontSize="24" 
+                FontWeight="Black" 
+                Text="{Binding CurrentArticle.Title}" />
+            <TextBlock
+                FontSize="16"
+                FontStyle="Italic"
+                Text="{Binding CurrentArticle.User}" />
+            <TextBlock
+                FontSize="14"
+                FontStyle="Italic"
+                Text="{Binding CurrentArticle.Content}" />
+        </StackPanel>
     </Grid>
 </Page>
