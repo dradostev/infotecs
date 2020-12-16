@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Grpc.Core;
+using Google.Protobuf;
 using Grpc.Net.Client;
 using Infotecs.Articles.Client.Rpc.Dto;
 
@@ -64,6 +63,31 @@ namespace Infotecs.Articles.Client.Rpc.Services
                     Username = x.User,
                     Content = x.Content,
                 }).ToList(),
+            };
+        }
+
+        /// <inheritdoc/>
+        public ArticleDto CreateArticle(string username, string title, string content)
+        {
+            using var chan = GrpcChannel.ForAddress(Url);
+
+            var client = new Articles.ArticlesClient(chan);
+
+            var reply = client.CreateArticle(new CreateArticleRequest
+            {
+                User = username,
+                Title = title,
+                Content = content,
+                ThumbnailImage = ByteString.CopyFrom(new byte[] { 72, 101, 108, 108, 111 }),
+            });
+            
+            return new ArticleDto
+            {
+                Id = reply.ArticleId,
+                Title = reply.Title,
+                Username = reply.User,
+                Content = reply.Content,
+                Comments = new List<CommentDto>(),
             };
         }
     }

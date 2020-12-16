@@ -7,10 +7,7 @@
              xmlns:vm="clr-namespace:Infotecs.Articles.Client.Wpf.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <vm:CreateArticleViewModel />
-    </UserControl.DataContext>
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -30,8 +27,15 @@
             Grid.Row="5"
             TextWrapping="Wrap"
             AcceptsReturn="True"
+            Height="360"
             VerticalScrollBarVisibility="Visible"
             Text="{Binding Article.Content}" />
-        <Button Width="160" Margin="15" FontSize="16" Grid.Row="7" Content="Save Article" />
+        <Button
+            Grid.Row="7"
+            Width="160"
+            Margin="15"
+            FontSize="16"
+            Command="{Binding SaveArticleCommand}"
+            Content="Save Article" />
     </Grid>
 </UserControl>
