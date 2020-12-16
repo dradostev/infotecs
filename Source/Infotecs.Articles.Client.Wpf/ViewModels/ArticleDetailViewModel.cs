@@ -1,4 +1,6 @@
-﻿using Infotecs.Articles.Client.Rpc.Services;
+﻿using System.Windows;
+using Grpc.Core;
+using Infotecs.Articles.Client.Rpc.Services;
 using Infotecs.Articles.Client.Wpf.Events;
 using Prism.Events;
 
@@ -53,8 +55,19 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         /// <param name="articleId">Article ID.</param>
         public void Load(long articleId)
         {
-            var articleReply = this.articlesRpcClient.ShowArticle(articleId);
-            this.Article = new ArticleViewModel(articleReply);
+            try
+            {
+                var articleReply = this.articlesRpcClient.ShowArticle(articleId);
+                this.Article = new ArticleViewModel(articleReply);
+            }
+            catch (RpcException e)
+            {
+                MessageBox.Show(
+                    $"Error fetching Article {articleId}:\n{e.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
         
         private void OnOpenArticleDetail(long articleId)

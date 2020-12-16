@@ -49,29 +49,22 @@ namespace Infotecs.Articles.Client.Rpc.Services
 
             var client = new Articles.ArticlesClient(chan);
 
-            try
+            var reply = client.ShowArticle(new ShowArticleRequest { ArticleId = articleId });
+
+            return new ArticleDto
             {
-                var reply = client.ShowArticle(new ShowArticleRequest { ArticleId = articleId });
-                return new ArticleDto
+                Id = reply.Article.ArticleId,
+                Title = reply.Article.Title,
+                Username = reply.Article.User,
+                Content = reply.Article.Content,
+                Comments = reply.Comments.Select(x => new CommentDto
                 {
-                    Id = reply.Article.ArticleId,
-                    Title = reply.Article.Title,
-                    Username = reply.Article.User,
-                    Content = reply.Article.Content,
-                    Comments = reply.Comments.Select(x => new CommentDto
-                    {
-                        CommentId = x.CommentId,
-                        ArticleId = x.ArticleId,
-                        Username = x.User,
-                        Content = x.Content,
-                    }).ToList(),
-                };
-            }
-            catch (RpcException e)
-            {
-                Console.WriteLine(e.Message); // TODO: serilog
-                return null;
-            }
+                    CommentId = x.CommentId,
+                    ArticleId = x.ArticleId,
+                    Username = x.User,
+                    Content = x.Content,
+                }).ToList(),
+            };
         }
     }
 }
