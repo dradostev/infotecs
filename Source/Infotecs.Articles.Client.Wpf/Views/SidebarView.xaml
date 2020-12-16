@@ -11,20 +11,23 @@
         <vm:SidebarViewModel />
     </UserControl.DataContext>
     <Grid>
-        <StackPanel>
-            <ListBox 
-                Grid.Column="0"
-                ItemsSource="{Binding Articles}"
-                SelectedItem="{Binding SelectedArticle, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock FontSize="16" Text="{Binding Title}" />
-                            <TextBlock FontSize="16" Text="{Binding User}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" FontSize="16" Content="[+] Create New Article" Command="{Binding CreateArticleCommand}" />
+        <ListBox
+            Grid.Row="1"
+            ItemsSource="{Binding Articles}"
+            SelectedItem="{Binding SelectedArticle, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="16" Text="{Binding Title}" />
+                        <TextBlock FontSize="16" Text="{Binding User}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

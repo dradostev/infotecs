@@ -7,7 +7,15 @@
         xmlns:vm="clr-namespace:Infotecs.Articles.Client.Wpf.ViewModels"
         xmlns:view="clr-namespace:Infotecs.Articles.Client.Wpf.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="768" Width="1024">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:ArticleDetailViewModel}">
+            <view:ArticleDetailView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CreateArticleViewModel}">
+            <view:CreateArticleView />
+        </DataTemplate>
+    </Window.Resources>
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
@@ -17,6 +25,8 @@
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
         <view:SidebarView DataContext="{Binding SidebarViewModel}" />
-        <view:ArticleDetailView Grid.Column="1" DataContext="{Binding ArticleDetailViewModel}" />
+        <ContentPresenter
+            Grid.Column="1"
+            Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

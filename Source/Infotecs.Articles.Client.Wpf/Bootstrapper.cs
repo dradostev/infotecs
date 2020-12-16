@@ -23,6 +23,7 @@ namespace Infotecs.Articles.Client.Wpf
             builder.RegisterType<MainViewModel>().AsSelf();
             builder.RegisterType<SidebarViewModel>().AsSelf();
             builder.RegisterType<ArticleDetailViewModel>().AsSelf();
+            builder.RegisterType<CreateArticleViewModel>().AsSelf();
             builder.RegisterType<ArticlesRpcClient>().As<IArticlesRpcClient>();
 
             return builder.Build();

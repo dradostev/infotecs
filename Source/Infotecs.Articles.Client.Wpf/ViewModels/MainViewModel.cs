@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
+using System.Windows.Input;
+using Infotecs.Articles.Client.Wpf.Events;
+using Prism.Events;
 
 namespace Infotecs.Articles.Client.Wpf.ViewModels
 {
@@ -8,17 +10,29 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
     /// </summary>
     public class MainViewModel : BaseViewModel
     {
-        private Page currentPage;
+        private readonly IEventAggregator eventAggregator;
+
+        private BaseViewModel currentViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
-        /// <param name="sidebarViewModel">Sidebar ViewModel.</param>
-        /// <param name="articleDetailViewModel">Article details ViewModel.</param>
-        public MainViewModel(SidebarViewModel sidebarViewModel, ArticleDetailViewModel articleDetailViewModel)
+        /// <param name="sidebarViewModel">Sidebar ViewModel injection.</param>
+        /// <param name="articleDetailViewModel">Article details ViewModel injection.</param>
+        /// <param name="createArticleViewModel">Article creation injection.</param>
+        /// <param name="eventAggregator">Event aggregator injection.</param>
+        public MainViewModel(
+            SidebarViewModel sidebarViewModel,
+            ArticleDetailViewModel articleDetailViewModel,
+            CreateArticleViewModel createArticleViewModel,
+            IEventAggregator eventAggregator)
         {
             this.SidebarViewModel = sidebarViewModel;
             this.ArticleDetailViewModel = articleDetailViewModel;
+            this.CreateArticleViewModel = createArticleViewModel;
+            this.eventAggregator = eventAggregator;
+            this.eventAggregator.GetEvent<OpenCreateArticleViewEvent>().Subscribe(this.OnOpenCreateArticleView);
+            this.eventAggregator.GetEvent<OpenArticleDetailEvent>().Subscribe(this.OnOpenArticleDetailView);
         }
 
         /// <summary>
@@ -37,16 +51,21 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         /// Gets single Article details ViewModel.
         /// </summary>
         public ArticleDetailViewModel ArticleDetailViewModel { get; }
-
+        
         /// <summary>
-        /// Gets or sets currently selected page.
+        /// Gets Article creation ViewModel.
         /// </summary>
-        public Page CurrentPage
+        public CreateArticleViewModel CreateArticleViewModel { get; }
+        
+        /// <summary>
+        /// Gets or sets current view ViewModel.
+        /// </summary>
+        public BaseViewModel CurrentViewModel
         {
-            get => this.currentPage;
+            get => this.currentViewModel;
             set
             {
-                this.currentPage = value;
+                this.currentViewModel = value;
                 this.OnPropertyChanged();
             }
         }
@@ -62,6 +81,16 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         public void OnLoad()
         {
             this.SidebarViewModel.OnLoad();
+        }
+        
+        private void OnOpenCreateArticleView()
+        {
+            this.CurrentViewModel = CreateArticleViewModel;
+        }
+        
+        private void OnOpenArticleDetailView(long articleId)
+        {
+            this.CurrentViewModel = ArticleDetailViewModel;
         }
     }
 }

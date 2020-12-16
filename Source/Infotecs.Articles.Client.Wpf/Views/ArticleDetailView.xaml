@@ -7,9 +7,6 @@
              xmlns:vm="clr-namespace:Infotecs.Articles.Client.Wpf.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <vm:ArticleDetailViewModel />
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -34,7 +31,7 @@
             Margin="10 0 0 10"
             FontSize="14"
             Text="{Binding Article.Content}" />
-        <ItemsControl 
+        <ItemsControl
             Grid.Row="3"
             ItemsSource="{Binding Article.Comments}">
             <ItemsControl.ItemTemplate>
@@ -43,9 +40,10 @@
                         <TextBlock
                             FontSize="14"
                             FontWeight="Bold"
-                            Background="Aqua"
+                            Background="Blue"
+                            Foreground="White"
                             Text="{Binding Username}" />
-                        <TextBlock FontSize="14" Text="{Binding Content}" />
+                        <TextBlock FontSize="14" TextWrapping="Wrap" Text="{Binding Content}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

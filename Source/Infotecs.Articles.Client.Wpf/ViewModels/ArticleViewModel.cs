@@ -25,14 +25,29 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
+        /// </summary>
+        public ArticleViewModel()
+        {
+        }
+
+        /// <summary>
         /// Gets Article ID.
         /// </summary>
         public long Id => this.articleDto.Id;
 
         /// <summary>
-        /// Gets Article author's name.
+        /// Gets or sets Article author's name.
         /// </summary>
-        public string User => this.articleDto.Username;
+        public string User
+        {
+            get => this.articleDto.Username;
+            set
+            {
+                this.articleDto.Username = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets Article title.
@@ -43,7 +58,7 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             set
             {
                 this.articleDto.Title = value;
-                this.OnPropertyChanged(nameof(this.Title));
+                this.OnPropertyChanged();
             }
         }
 
@@ -56,7 +71,7 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             set
             {
                 this.articleDto.Content = value;
-                this.OnPropertyChanged(nameof(this.Content));
+                this.OnPropertyChanged();
             }
         }
 
@@ -69,7 +84,7 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             set
             {
                 this.articleDto.Thumbnail = value;
-                this.OnPropertyChanged(nameof(this.Thumbnail));
+                this.OnPropertyChanged();
             }
         }
 

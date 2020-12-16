@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Infotecs.Articles.Client.Rpc.Services;
 using Infotecs.Articles.Client.Wpf.Events;
+using Prism.Commands;
 using Prism.Events;
 
 namespace Infotecs.Articles.Client.Wpf.ViewModels
@@ -25,6 +27,7 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         {
             this.articlesRpcClient = articlesRpcClient;
             this.eventAggregator = eventAggregator;
+            this.CreateArticleCommand = new DelegateCommand(OnCreateArticle, () => true);
         }
 
         /// <summary>
@@ -38,6 +41,11 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         /// Gets an observable collection of articles.
         /// </summary>
         public ObservableCollection<ArticleViewModel> Articles { get; } = new ObservableCollection<ArticleViewModel>();
+        
+        /// <summary>
+        /// Gets create Article command.
+        /// </summary>
+        public ICommand CreateArticleCommand { get; }
 
         /// <summary>
         /// Gets or sets selected Article.
@@ -70,6 +78,11 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             {
                 this.Articles.Add(new ArticleViewModel(article));
             }
+        }
+        
+        private void OnCreateArticle()
+        {
+            this.eventAggregator.GetEvent<OpenCreateArticleViewEvent>().Publish();
         }
     }
 }
