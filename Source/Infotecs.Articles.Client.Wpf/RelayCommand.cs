@@ -21,18 +21,18 @@
             this.canExecute = canExecute;
             this.execute = execute;
         }
-
-        /// <inheritdoc/>
-        public bool CanExecute(object parameter) => this.canExecute(parameter);
-
-        /// <inheritdoc/>
-        public void Execute(object parameter) => this.execute(parameter);
-
+        
         /// <inheritdoc/>
         public event EventHandler CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested += value;
         }
+
+        /// <inheritdoc/>
+        public bool CanExecute(object parameter) => this.canExecute(parameter);
+
+        /// <inheritdoc/>
+        public void Execute(object parameter) => this.execute(parameter);
     }
 }

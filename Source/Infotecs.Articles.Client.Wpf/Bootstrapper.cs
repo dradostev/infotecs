@@ -23,7 +23,7 @@
             builder.RegisterType<MainViewModel>().AsSelf();
             builder.RegisterType<SidebarViewModel>().AsSelf();
             builder.RegisterType<ArticleDetailViewModel>().AsSelf();
-            builder.RegisterType<RpcClient>().As<IRpcClient>();
+            builder.RegisterType<ArticlesRpcClient>().As<IArticlesRpcClient>();
 
             return builder.Build();
         }

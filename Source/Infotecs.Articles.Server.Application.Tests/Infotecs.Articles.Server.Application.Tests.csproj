@@ -8,6 +8,11 @@
         <RootNamespace>Infotes.Articles.Server.Application.Tests</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>..\..\infotecs.ruleset</CodeAnalysisRuleSet>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Grpc.Core.Testing" Version="2.34.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />

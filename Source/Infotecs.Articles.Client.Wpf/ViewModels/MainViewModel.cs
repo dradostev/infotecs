@@ -1,14 +1,8 @@
-﻿namespace Infotecs.Articles.Client.Wpf.ViewModels
-{
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Windows.Controls;
-    using System.Windows.Input;
-    using Infotecs.Articles.Client.Rpc.Models;
-    using Infotecs.Articles.Client.Rpc.Services;
-    using Infotecs.Articles.Client.Wpf.Pages;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
+namespace Infotecs.Articles.Client.Wpf.ViewModels
+{
     /// <summary>
     /// Main Window view model.
     /// </summary>

@@ -8,6 +8,11 @@
       <ProjectReference Include="..\Infotecs.Articles.Server.Domain\Infotecs.Articles.Server.Domain.csproj" />
     </ItemGroup>
 
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>..\..\infotecs.ruleset</CodeAnalysisRuleSet>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+  
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.0.78" />
       <PackageReference Include="Npgsql" Version="5.0.0" />

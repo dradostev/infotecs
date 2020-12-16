@@ -1,7 +1,6 @@
 ﻿namespace Infotecs.Articles.Client.Wpf.ViewModels
 {
     using System.Collections.ObjectModel;
-    using Infotecs.Articles.Client.Rpc.Models;
     using Infotecs.Articles.Client.Rpc.Services;
     using Infotecs.Articles.Client.Wpf.Events;
     using Prism.Events;
@@ -11,7 +10,7 @@
     /// </summary>
     public class SidebarViewModel : BaseViewModel
     {
-        private readonly IRpcClient rpcClient;
+        private readonly IArticlesRpcClient articlesRpcClient;
 
         private readonly IEventAggregator eventAggregator;
 
@@ -20,11 +19,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="SidebarViewModel"/> class.
         /// </summary>
-        /// <param name="rpcClient">Rpc client injection.</param>
+        /// <param name="articlesRpcClient">Rpc client injection.</param>
         /// <param name="eventAggregator">Event aggregator injection.</param>
-        public SidebarViewModel(IRpcClient rpcClient, IEventAggregator eventAggregator)
+        public SidebarViewModel(IArticlesRpcClient articlesRpcClient, IEventAggregator eventAggregator)
         {
-            this.rpcClient = rpcClient;
+            this.articlesRpcClient = articlesRpcClient;
             this.eventAggregator = eventAggregator;
         }
 
@@ -63,7 +62,7 @@
         /// </summary>
         public void OnLoad()
         {
-            var result = this.rpcClient.ListArticles();
+            var result = this.articlesRpcClient.ListArticles();
 
             this.Articles.Clear();
 

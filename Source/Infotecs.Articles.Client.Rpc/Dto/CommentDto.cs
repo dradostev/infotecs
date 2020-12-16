@@ -1,6 +1,9 @@
-﻿namespace Infotecs.Articles.Client.Rpc.Models
+﻿namespace Infotecs.Articles.Client.Rpc.Dto
 {
-    public class Comment
+    /// <summary>
+    /// Comment DTO.
+    /// </summary>
+    public class CommentDto
     {
         /// <summary>
         /// Gets database primary key

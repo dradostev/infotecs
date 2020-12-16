@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Server.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Client.Wpf", "Source\Infotecs.Articles.Client.Wpf\Infotecs.Articles.Client.Wpf.csproj", "{0DB391EA-0CF1-4022-A8DA-EE65E0F06C94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Client.Rpc", "Infotecs.Articles.Client.Rpc\Infotecs.Articles.Client.Rpc.csproj", "{C770EB95-279A-4D24-9534-CCC2DEBCD5C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infotecs.Articles.Client.Rpc", "Source\Infotecs.Articles.Client.Rpc\Infotecs.Articles.Client.Rpc.csproj", "{77306DB8-C758-456B-AD41-CA2C2A8852ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,9 +38,9 @@ Global
 		{0DB391EA-0CF1-4022-A8DA-EE65E0F06C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DB391EA-0CF1-4022-A8DA-EE65E0F06C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB391EA-0CF1-4022-A8DA-EE65E0F06C94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C770EB95-279A-4D24-9534-CCC2DEBCD5C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C770EB95-279A-4D24-9534-CCC2DEBCD5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C770EB95-279A-4D24-9534-CCC2DEBCD5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C770EB95-279A-4D24-9534-CCC2DEBCD5C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77306DB8-C758-456B-AD41-CA2C2A8852ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77306DB8-C758-456B-AD41-CA2C2A8852ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77306DB8-C758-456B-AD41-CA2C2A8852ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77306DB8-C758-456B-AD41-CA2C2A8852ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

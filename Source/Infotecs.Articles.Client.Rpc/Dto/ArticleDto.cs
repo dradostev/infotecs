@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Infotecs.Articles.Client.Rpc.Models
+namespace Infotecs.Articles.Client.Rpc.Dto
 {
-    public class Article
+    /// <summary>
+    /// Article DTO.
+    /// </summary>
+    public class ArticleDto
     {
         /// <summary>
         /// Gets database primary key
@@ -32,6 +35,6 @@ namespace Infotecs.Articles.Client.Rpc.Models
         /// <summary>
         /// Gets collection on Comments attached to the Article
         /// </summary>
-        public IList<Comment> Comments { get; set; } = new List<Comment>();
+        public IList<CommentDto> Comments { get; set; } = new List<CommentDto>();
     }
 }

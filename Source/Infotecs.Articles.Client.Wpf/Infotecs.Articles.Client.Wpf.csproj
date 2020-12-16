@@ -5,6 +5,11 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UseWPF>true</UseWPF>
     </PropertyGroup>
+  
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>..\..\infotecs.ruleset</CodeAnalysisRuleSet>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Autofac" Version="6.1.0" />
@@ -17,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Infotecs.Articles.Client.Rpc\Infotecs.Articles.Client.Rpc.csproj" />
+      <ProjectReference Include="..\Infotecs.Articles.Client.Rpc\Infotecs.Articles.Client.Rpc.csproj" />
     </ItemGroup>
 
 </Project>

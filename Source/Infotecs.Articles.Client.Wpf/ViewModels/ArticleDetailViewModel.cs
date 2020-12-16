@@ -4,35 +4,39 @@ using Prism.Events;
 
 namespace Infotecs.Articles.Client.Wpf.ViewModels
 {
+    /// <summary>
+    /// Single Article details view model.
+    /// </summary>
     public class ArticleDetailViewModel : BaseViewModel
     {
-        private readonly IRpcClient rpcClient;
+        private readonly IArticlesRpcClient articlesRpcClient;
+
         private readonly IEventAggregator eventAggregator;
 
         private ArticleViewModel article;
 
-        public ArticleDetailViewModel(IRpcClient rpcClient, IEventAggregator eventAggregator)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticleDetailViewModel"/> class.
+        /// </summary>
+        /// <param name="articlesRpcClient">gRPC client injection.</param>
+        /// <param name="eventAggregator">Event aggregator injection.</param>
+        public ArticleDetailViewModel(IArticlesRpcClient articlesRpcClient, IEventAggregator eventAggregator)
         {
-            this.rpcClient = rpcClient;
+            this.articlesRpcClient = articlesRpcClient;
             this.eventAggregator = eventAggregator;
             this.eventAggregator.GetEvent<OpenArticleDetailEvent>().Subscribe(this.OnOpenArticleDetail);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticleDetailViewModel"/> class.
+        /// </summary>
         public ArticleDetailViewModel()
         {
         }
-
-        private void OnOpenArticleDetail(long articleId)
-        {
-            this.Load(articleId);
-        }
-
-        public void Load(long articleId)
-        {
-            var articleReply = this.rpcClient.ShowArticle(articleId);
-            this.Article = new ArticleViewModel(articleReply);
-        }
-
+        
+        /// <summary>
+        /// Gets article ViewModel.
+        /// </summary>
         public ArticleViewModel Article
         {
             get => this.article;
@@ -41,6 +45,21 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
                 this.article = value;
                 this.OnPropertyChanged();
             }
+        }
+        
+        /// <summary>
+        /// Fetch Article by ID.
+        /// </summary>
+        /// <param name="articleId">Article ID.</param>
+        public void Load(long articleId)
+        {
+            var articleReply = this.articlesRpcClient.ShowArticle(articleId);
+            this.Article = new ArticleViewModel(articleReply);
+        }
+        
+        private void OnOpenArticleDetail(long articleId)
+        {
+            this.Load(articleId);
         }
     }
 }

@@ -1,53 +1,52 @@
 ﻿using System.Collections.ObjectModel;
+using Infotecs.Articles.Client.Rpc.Dto;
 
 namespace Infotecs.Articles.Client.Wpf.ViewModels
 {
-    using Infotecs.Articles.Client.Rpc.Models;
-
     public class ArticleViewModel : BaseViewModel
     {
-        private readonly Article article;
+        private readonly ArticleDto articleDto;
 
-        public ArticleViewModel(Article article)
+        public ArticleViewModel(ArticleDto articleDto)
         {
-            this.article = article;
+            this.articleDto = articleDto;
 
-            foreach (var comment in article.Comments)
+            foreach (var comment in articleDto.Comments)
             {
                 this.Comments.Add(new CommentViewModel(comment));
             }
         }
 
-        public long Id => this.article.Id;
+        public long Id => this.articleDto.Id;
 
-        public string User => this.article.Username;
+        public string User => this.articleDto.Username;
 
         public string Title
         {
-            get => this.article.Title;
+            get => this.articleDto.Title;
             set
             {
-                this.article.Title = value;
+                this.articleDto.Title = value;
                 this.OnPropertyChanged(nameof(this.Title));
             }
         }
 
         public string Content
         {
-            get => this.article.Content;
+            get => this.articleDto.Content;
             set
             {
-                this.article.Content = value;
+                this.articleDto.Content = value;
                 this.OnPropertyChanged(nameof(this.Content));
             }
         }
 
         public byte[] Thumbnail
         {
-            get => this.article.Thumbnail;
+            get => this.articleDto.Thumbnail;
             set
             {
-                this.article.Thumbnail = value;
+                this.articleDto.Thumbnail = value;
                 this.OnPropertyChanged(nameof(this.Thumbnail));
             }
         }

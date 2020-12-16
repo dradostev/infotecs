@@ -26,11 +26,6 @@
     public class Startup
     {
         /// <summary>
-        /// Gets configuration.
-        /// </summary>
-        public IConfiguration Configuration { get; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
         /// </summary>
         /// <param name="configuration">Injects configuration.</param>
@@ -38,6 +33,11 @@
         {
             this.Configuration = configuration;
         }
+        
+        /// <summary>
+        /// Gets configuration.
+        /// </summary>
+        public IConfiguration Configuration { get; }
 
         /// <summary>
         /// Validator for AddCommentRequest.

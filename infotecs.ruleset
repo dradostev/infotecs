@@ -2,6 +2,7 @@
 <RuleSet Name="InfoTeCS" Description=" " ToolsVersion="15.0">
   <Include Path="securityrules.ruleset" Action="Default" />
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA0001" Action="None" />
     <Rule Id="SA0102" Action="None" />
     <Rule Id="SA1000" Action="None" />
     <Rule Id="SA1001" Action="None" />

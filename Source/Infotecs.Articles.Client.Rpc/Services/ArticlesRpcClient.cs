@@ -4,20 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Grpc.Net.Client;
-using Infotecs.Articles.Client.Rpc.Models;
+using Infotecs.Articles.Client.Rpc.Dto;
 
 namespace Infotecs.Articles.Client.Rpc.Services
 {
-    public class RpcClient : IRpcClient
+    public class ArticlesRpcClient : IArticlesRpcClient
     {
         private const string Url = "http://localhost:5001";
 
-        public RpcClient()
+        public ArticlesRpcClient()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
 
-        public IEnumerable<Article> ListArticles()
+        public IEnumerable<ArticleDto> ListArticles()
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
@@ -25,7 +25,7 @@ namespace Infotecs.Articles.Client.Rpc.Services
 
             var reply = client.ListArticles(new EmptyRequest());
 
-            return reply.Articles.Select(x => new Article
+            return reply.Articles.Select(x => new ArticleDto
             {
                 Id = x.ArticleId,
                 Title = x.Title,
@@ -35,7 +35,7 @@ namespace Infotecs.Articles.Client.Rpc.Services
             });
         }
 
-        public Article ShowArticle(long articleId)
+        public ArticleDto ShowArticle(long articleId)
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
@@ -44,13 +44,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
             try
             {
                 var reply = client.ShowArticle(new ShowArticleRequest { ArticleId = articleId });
-                return new Article
+                return new ArticleDto
                 {
                     Id = reply.Article.ArticleId,
                     Title = reply.Article.Title,
                     Username = reply.Article.User,
                     Content = reply.Article.Content,
-                    Comments = reply.Comments.Select(x => new Comment
+                    Comments = reply.Comments.Select(x => new CommentDto
                     {
                         CommentId = x.CommentId,
                         ArticleId = x.ArticleId,
@@ -61,6 +61,7 @@ namespace Infotecs.Articles.Client.Rpc.Services
             }
             catch (RpcException e)
             {
+                Console.WriteLine(e.Message); // TODO: serilog
                 return null;
             }
         }
