@@ -1,10 +1,10 @@
-﻿namespace Infotecs.Articles.Client.Wpf.ViewModels
-{
-    using System.Collections.ObjectModel;
-    using Infotecs.Articles.Client.Rpc.Services;
-    using Infotecs.Articles.Client.Wpf.Events;
-    using Prism.Events;
+﻿using System.Collections.ObjectModel;
+using Infotecs.Articles.Client.Rpc.Services;
+using Infotecs.Articles.Client.Wpf.Events;
+using Prism.Events;
 
+namespace Infotecs.Articles.Client.Wpf.ViewModels
+{
     /// <summary>
     /// ViewModel for Articles in sidebar.
     /// </summary>

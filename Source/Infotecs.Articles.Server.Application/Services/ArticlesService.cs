@@ -1,15 +1,15 @@
-﻿namespace Infotecs.Articles.Server.Application.Services
-{
-    using System.Linq;
-    using System.Threading.Tasks;
-    using FluentValidation;
-    using Google.Protobuf;
-    using Google.Protobuf.Collections;
-    using Grpc.Core;
-    using Infotecs.Articles.Server.Domain.Entities;
-    using Infotecs.Articles.Server.Domain.Repositories;
-    using Microsoft.Extensions.Logging;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using FluentValidation;
+using Google.Protobuf;
+using Google.Protobuf.Collections;
+using Grpc.Core;
+using Infotecs.Articles.Server.Domain.Entities;
+using Infotecs.Articles.Server.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 
+namespace Infotecs.Articles.Server.Application.Services
+{
     /// <summary>
     /// gRPC service for Articles and Comments CRUD operations.
     /// </summary>

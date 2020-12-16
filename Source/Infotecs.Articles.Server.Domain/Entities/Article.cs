@@ -1,8 +1,7 @@
-﻿namespace Infotecs.Articles.Server.Domain.Entities
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Infotecs.Articles.Server.Domain.Entities
+{
     /// <summary>
     /// Comment is an entity user can create and write things in.
     /// </summary>

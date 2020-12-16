@@ -1,8 +1,8 @@
-﻿namespace Infotecs.Articles.Client.Wpf
-{
-    using System.Windows;
-    using Infotecs.Articles.Client.Wpf.ViewModels;
+﻿using System.Windows;
+using Infotecs.Articles.Client.Wpf.ViewModels;
 
+namespace Infotecs.Articles.Client.Wpf
+{
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

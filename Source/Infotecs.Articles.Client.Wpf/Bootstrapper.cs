@@ -1,10 +1,10 @@
-﻿namespace Infotecs.Articles.Client.Wpf
-{
-    using Autofac;
-    using Infotecs.Articles.Client.Rpc.Services;
-    using Infotecs.Articles.Client.Wpf.ViewModels;
-    using Prism.Events;
+﻿using Autofac;
+using Infotecs.Articles.Client.Rpc.Services;
+using Infotecs.Articles.Client.Wpf.ViewModels;
+using Prism.Events;
 
+namespace Infotecs.Articles.Client.Wpf
+{
     /// <summary>
     /// Dependency injection bootstrapper.
     /// </summary>

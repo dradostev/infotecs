@@ -1,9 +1,9 @@
-﻿namespace Infotecs.Articles.Server.Application.Validators
-{
-    using System;
-    using Autofac;
-    using FluentValidation;
+﻿using System;
+using Autofac;
+using FluentValidation;
 
+namespace Infotecs.Articles.Server.Application.Validators
+{
     /// <inheritdoc />
     public class AutofacValidatorFactory : ValidatorFactoryBase
     {

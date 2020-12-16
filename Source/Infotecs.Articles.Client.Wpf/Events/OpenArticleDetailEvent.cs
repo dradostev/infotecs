@@ -1,7 +1,7 @@
-﻿namespace Infotecs.Articles.Client.Wpf.Events
-{
-    using Prism.Events;
+﻿using Prism.Events;
 
+namespace Infotecs.Articles.Client.Wpf.Events
+{
     /// <summary>
     /// Event for transferring Article ID between views.
     /// </summary>

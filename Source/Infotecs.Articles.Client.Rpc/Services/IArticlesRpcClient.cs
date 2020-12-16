@@ -8,7 +8,17 @@ namespace Infotecs.Articles.Client.Rpc.Services
     /// </summary>
     public interface IArticlesRpcClient
     {
+        /// <summary>
+        /// Fetch Articles list from server.
+        /// </summary>
+        /// <returns>Enumerable of Articles.</returns>
         IEnumerable<ArticleDto> ListArticles();
+        
+        /// <summary>
+        /// Fetch single Article with Comments by ID from server.
+        /// </summary>
+        /// <param name="articleId">Article ID.</param>
+        /// <returns>Article with Comments.</returns>
         ArticleDto ShowArticle(long articleId);
     }
 }

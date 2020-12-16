@@ -1,9 +1,9 @@
-﻿namespace Infotecs.Articles.Server.Domain.Repositories
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Infotecs.Articles.Server.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infotecs.Articles.Server.Domain.Entities;
 
+namespace Infotecs.Articles.Server.Domain.Repositories
+{
     /// <summary>
     /// Articles database repository interface.
     /// </summary>

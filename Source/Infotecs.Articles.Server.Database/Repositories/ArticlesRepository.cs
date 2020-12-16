@@ -1,15 +1,15 @@
-﻿namespace Infotecs.Articles.Server.Database.Repositories
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Dapper;
-    using Infotecs.Articles.Server.Domain.Entities;
-    using Infotecs.Articles.Server.Domain.Repositories;
-    using Npgsql;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using Dapper;
+using Infotecs.Articles.Server.Domain.Entities;
+using Infotecs.Articles.Server.Domain.Repositories;
+using Npgsql;
 
+namespace Infotecs.Articles.Server.Database.Repositories
+{
     /// <summary>
     /// Articles database repository implementation.
     /// </summary>

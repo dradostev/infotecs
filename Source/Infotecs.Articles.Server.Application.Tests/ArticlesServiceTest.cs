@@ -1,21 +1,20 @@
-﻿namespace Infotecs.Articles.Server.Application.Tests
-{
-    using System;
-    using System.Threading;
-    using FluentValidation;
-    using Google.Protobuf;
-    using Grpc.Core;
-    using Grpc.Core.Testing;
-    using Grpc.Core.Utils;
-    using Infotecs.Articles.Server.Application;
-    using Infotecs.Articles.Server.Application.Services;
-    using Infotecs.Articles.Server.Application.Validators;
-    using Infotecs.Articles.Server.Domain.Entities;
-    using Infotecs.Articles.Server.Domain.Repositories;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using Xunit;
+﻿using System;
+using System.Threading;
+using FluentValidation;
+using Google.Protobuf;
+using Grpc.Core;
+using Grpc.Core.Testing;
+using Grpc.Core.Utils;
+using Infotecs.Articles.Server.Application.Services;
+using Infotecs.Articles.Server.Application.Validators;
+using Infotecs.Articles.Server.Domain.Entities;
+using Infotecs.Articles.Server.Domain.Repositories;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Xunit;
 
+namespace Infotecs.Articles.Server.Application.Tests
+{
     /// <summary>
     /// Unit tests for Articles gRPC service.
     /// </summary>

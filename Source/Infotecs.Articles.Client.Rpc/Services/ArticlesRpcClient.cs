@@ -8,15 +8,22 @@ using Infotecs.Articles.Client.Rpc.Dto;
 
 namespace Infotecs.Articles.Client.Rpc.Services
 {
+    /// <summary>
+    /// <inheritdoc cref="IArticlesRpcClient"/>
+    /// </summary>
     public class ArticlesRpcClient : IArticlesRpcClient
     {
         private const string Url = "http://localhost:5001";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArticlesRpcClient"/> class.
+        /// </summary>
         public ArticlesRpcClient()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
 
+        /// <inheritdoc/>
         public IEnumerable<ArticleDto> ListArticles()
         {
             using var chan = GrpcChannel.ForAddress(Url);
@@ -35,6 +42,7 @@ namespace Infotecs.Articles.Client.Rpc.Services
             });
         }
 
+        /// <inheritdoc/>
         public ArticleDto ShowArticle(long articleId)
         {
             using var chan = GrpcChannel.ForAddress(Url);

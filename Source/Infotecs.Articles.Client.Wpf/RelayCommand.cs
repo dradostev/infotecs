@@ -1,8 +1,8 @@
-﻿namespace Infotecs.Articles.Client.Wpf
-{
-    using System;
-    using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
+namespace Infotecs.Articles.Client.Wpf
+{
     /// <summary>
     /// Universal relay command.
     /// </summary>

@@ -1,7 +1,7 @@
-﻿namespace Infotecs.Articles.Server.Application.Validators
-{
-    using FluentValidation;
+﻿using FluentValidation;
 
+namespace Infotecs.Articles.Server.Application.Validators
+{
     /// <summary>
     /// Validator for AddCommentRequest.
     /// </summary>

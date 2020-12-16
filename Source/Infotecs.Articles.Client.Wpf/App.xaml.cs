@@ -1,8 +1,8 @@
-﻿namespace Infotecs.Articles.Client.Wpf
-{
-    using System.Windows;
-    using Autofac;
+﻿using System.Windows;
+using Autofac;
 
+namespace Infotecs.Articles.Client.Wpf
+{
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

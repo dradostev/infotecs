@@ -1,8 +1,8 @@
-﻿namespace Infotecs.Articles.Client.Wpf.ViewModels
-{
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
+namespace Infotecs.Articles.Client.Wpf.ViewModels
+{
     /// <summary>
     /// Base MVVM view model to derive from.
     /// </summary>

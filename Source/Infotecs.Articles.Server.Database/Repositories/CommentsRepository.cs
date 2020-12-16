@@ -1,13 +1,13 @@
-﻿namespace Infotecs.Articles.Server.Database.Repositories
-{
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Threading.Tasks;
-    using Dapper;
-    using Infotecs.Articles.Server.Domain.Entities;
-    using Infotecs.Articles.Server.Domain.Repositories;
-    using Npgsql;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+using Dapper;
+using Infotecs.Articles.Server.Domain.Entities;
+using Infotecs.Articles.Server.Domain.Repositories;
+using Npgsql;
 
+namespace Infotecs.Articles.Server.Database.Repositories
+{
     /// <summary>
     /// Comments database repository implementation.
     /// </summary>
