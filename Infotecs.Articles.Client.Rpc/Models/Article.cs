@@ -1,4 +1,6 @@
-﻿namespace Infotecs.Articles.Client.Rpc.Models
+﻿using System.Collections.Generic;
+
+namespace Infotecs.Articles.Client.Rpc.Models
 {
     public class Article
     {
@@ -30,6 +32,6 @@
         /// <summary>
         /// Gets collection on Comments attached to the Article
         /// </summary>
-        // public IList<Comment> Comments { get; private set; } = new List<Comment>();
+        public IList<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

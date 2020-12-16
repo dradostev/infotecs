@@ -50,6 +50,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
                     Title = reply.Article.Title,
                     Username = reply.Article.User,
                     Content = reply.Article.Content,
+                    Comments = reply.Comments.Select(x => new Comment
+                    {
+                        CommentId = x.CommentId,
+                        ArticleId = x.ArticleId,
+                        Username = x.User,
+                        Content = x.Content,
+                    }).ToList(),
                 };
             }
             catch (RpcException e)

@@ -43,7 +43,8 @@
             }
 
             var comments = await connection.QueryAsync<Comment>(
-                @"select * from comments where article_id = @ArticleId",
+                @"select id as CommentId, article_id as ArticleId, username as Username, content as Content
+                     from comments where article_id = @ArticleId",
                 new { ArticleId = articleId });
 
             foreach (var comment in comments)

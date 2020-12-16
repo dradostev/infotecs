@@ -1,4 +1,6 @@
-﻿namespace Infotecs.Articles.Client.Wpf.ViewModels
+﻿using System.Collections.ObjectModel;
+
+namespace Infotecs.Articles.Client.Wpf.ViewModels
 {
     using Infotecs.Articles.Client.Rpc.Models;
 
@@ -9,6 +11,11 @@
         public ArticleViewModel(Article article)
         {
             this.article = article;
+
+            foreach (var comment in article.Comments)
+            {
+                this.Comments.Add(new CommentViewModel(comment));
+            }
         }
 
         public long Id => this.article.Id;
@@ -44,5 +51,7 @@
                 this.OnPropertyChanged(nameof(this.Thumbnail));
             }
         }
+
+        public ObservableCollection<CommentViewModel> Comments { get; } = new ObservableCollection<CommentViewModel>();
     }
 }
