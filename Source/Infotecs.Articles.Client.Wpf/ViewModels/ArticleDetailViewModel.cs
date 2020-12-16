@@ -1,7 +1,10 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using Grpc.Core;
+using Infotecs.Articles.Client.Rpc.Dto;
 using Infotecs.Articles.Client.Rpc.Services;
 using Infotecs.Articles.Client.Wpf.Events;
+using Prism.Commands;
 using Prism.Events;
 
 namespace Infotecs.Articles.Client.Wpf.ViewModels
@@ -17,6 +20,8 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
 
         private ArticleViewModel article;
 
+        private CommentViewModel comment;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticleDetailViewModel"/> class.
         /// </summary>
@@ -27,6 +32,8 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             this.articlesRpcClient = articlesRpcClient;
             this.eventAggregator = eventAggregator;
             this.eventAggregator.GetEvent<OpenArticleDetailEvent>().Subscribe(this.OnOpenArticleDetail);
+            this.AddCommentCommand = new DelegateCommand(OnAddComment);
+            this.Comment = new CommentViewModel(new CommentDto());
         }
 
         /// <summary>
@@ -48,6 +55,24 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
                 this.OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Gets new Comment ViewModel.
+        /// </summary>
+        public CommentViewModel Comment
+        {
+            get => this.comment;
+            set
+            {
+                this.comment = value;
+                this.OnPropertyChanged();
+            }
+        }
+        
+        /// <summary>
+        /// Gets add comment command.
+        /// </summary>
+        public ICommand AddCommentCommand { get; }
         
         /// <summary>
         /// Fetch Article by ID.
@@ -73,6 +98,29 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         private void OnOpenArticleDetail(long articleId)
         {
             this.Load(articleId);
+        }
+        
+        private void OnAddComment()
+        {
+            try
+            {
+                var commentReply = this.articlesRpcClient.AddComment(
+                    Article.Id,
+                    Comment.Username,
+                    Comment.Content);
+                
+                this.Article.Comments.Add(new CommentViewModel(commentReply));
+                
+                this.Comment = new CommentViewModel(new CommentDto());
+            }
+            catch (RpcException e)
+            {
+                MessageBox.Show(
+                    $"Error creating Comment:\n{e.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
     }
 }

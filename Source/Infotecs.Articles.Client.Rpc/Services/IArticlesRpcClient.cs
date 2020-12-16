@@ -29,5 +29,14 @@ namespace Infotecs.Articles.Client.Rpc.Services
         /// <param name="content">Article text content.</param>
         /// <returns>New Article.</returns>
         ArticleDto CreateArticle(string username, string title, string content);
+
+        /// <summary>
+        /// Save new Comment for Article.
+        /// </summary>
+        /// <param name="articleId">Article ID.</param>
+        /// <param name="username">Comment author.</param>
+        /// <param name="content">Comment text content.</param>
+        /// <returns>New Comment.</returns>
+        CommentDto AddComment(long articleId, string username, string content);
     }
 }

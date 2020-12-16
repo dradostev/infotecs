@@ -90,5 +90,28 @@ namespace Infotecs.Articles.Client.Rpc.Services
                 Comments = new List<CommentDto>(),
             };
         }
+
+        /// <inheritdoc/>
+        public CommentDto AddComment(long articleId, string username, string content)
+        {
+            using var chan = GrpcChannel.ForAddress(Url);
+
+            var client = new Articles.ArticlesClient(chan);
+
+            var reply = client.AddComment(new AddCommentRequest
+            {
+                ArticleId = articleId,
+                User = username,
+                Content = content,
+            });
+
+            return new CommentDto
+            {
+                CommentId = reply.CommentId,
+                ArticleId = reply.ArticleId,
+                Username = reply.User,
+                Content = reply.Content,
+            };
+        }
     }
 }

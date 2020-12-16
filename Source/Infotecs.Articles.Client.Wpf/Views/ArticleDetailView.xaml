@@ -13,6 +13,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock 
@@ -49,5 +54,22 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Label Grid.Row="4" FontSize="16" FontWeight="Bold" Content="Author" />
+        <TextBox Grid.Row="5" Text="{Binding Comment.Username}" />
+        <Label Grid.Row="6" FontSize="16" FontWeight="Bold" Content="Comment Text" />
+        <TextBox 
+            Grid.Row="7"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            Height="160"
+            VerticalScrollBarVisibility="Visible"
+            Text="{Binding Comment.Content}" />
+        <Button
+            Grid.Row="8"
+            Width="160"
+            Margin="15"
+            FontSize="16"
+            Command="{Binding AddCommentCommand}"
+            Content="Add Comment" />
     </Grid>
 </UserControl>
