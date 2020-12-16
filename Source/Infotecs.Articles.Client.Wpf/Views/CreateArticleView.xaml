@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Infotecs.Articles.Client.Wpf.Views"
              xmlns:vm="clr-namespace:Infotecs.Articles.Client.Wpf.ViewModels"
+             xmlns:validators="clr-namespace:Infotecs.Articles.Client.Wpf.Validators"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="10">
@@ -19,17 +20,40 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" FontSize="16" FontWeight="Bold" Content="Title" />
-        <TextBox Grid.Row="1" Text="{Binding Article.Title}" />
+        <TextBox Grid.Row="1">
+            <TextBox.Text>
+                <Binding Path="Article.Title">
+                    <Binding.ValidationRules>
+                        <validators:TitleValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Grid.Row="2" FontSize="16" FontWeight="Bold" Content="Author" />
-        <TextBox Grid.Row="3" Text="{Binding Article.User}" />
+        <TextBox Grid.Row="3">
+            <TextBox.Text>
+                <Binding Path="Article.User">
+                    <Binding.ValidationRules>
+                        <validators:UsernameValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Grid.Row="4" FontSize="16" FontWeight="Bold" Content="Article Text" />
         <TextBox 
             Grid.Row="5"
             TextWrapping="Wrap"
             AcceptsReturn="True"
             Height="360"
-            VerticalScrollBarVisibility="Visible"
-            Text="{Binding Article.Content}" />
+            VerticalScrollBarVisibility="Visible">
+            <TextBox.Text>
+                <Binding Path="Article.Content">
+                    <Binding.ValidationRules>
+                        <validators:ContentValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Button
             Grid.Row="7"
             Width="160"
