@@ -34,23 +34,22 @@
             using var connection = this.DbConnection;
             connection.Open();
 
-            Article article = null;
+            var article = await connection.QueryFirstOrDefaultAsync<Article>(
+                @"select * from articles where id = @Id", new { Id = articleId });
 
-            await connection.QueryAsync<Article, Comment, Article>(
-                @"select
-                        articles.*,
-                        comments.id CommentId, comments.article_id,
-                        comments.username, comments.content
-                    from articles inner join comments on articles.id = comments.article_id
-                    where articles.id = @Id",
-                param: new { @Id = articleId },
-                map: (a, c) =>
-                {
-                    article ??= a;
-                    article.Comments.Add(c);
-                    return article;
-                },
-                splitOn: "article_id");
+            if (article == null)
+            {
+                return null;
+            }
+
+            var comments = await connection.QueryAsync<Comment>(
+                @"select * from comments where article_id = @ArticleId",
+                new { ArticleId = articleId });
+
+            foreach (var comment in comments)
+            {
+                article.Comments.Add(comment);
+            }
 
             return article;
         }

@@ -3,6 +3,7 @@
     using Autofac;
     using Infotecs.Articles.Client.Rpc.Services;
     using Infotecs.Articles.Client.Wpf.ViewModels;
+    using Prism.Events;
 
     /// <summary>
     /// Dependency injection bootstrapper.
@@ -17,8 +18,11 @@
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();
+            builder.RegisterType<SidebarViewModel>().AsSelf();
+            builder.RegisterType<ArticleDetailViewModel>().AsSelf();
             builder.RegisterType<RpcClient>().As<IRpcClient>();
 
             return builder.Build();

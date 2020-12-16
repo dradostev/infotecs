@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Infotecs.Articles.Client.Wpf"
         xmlns:vm="clr-namespace:Infotecs.Articles.Client.Wpf.ViewModels"
+        xmlns:view="clr-namespace:Infotecs.Articles.Client.Wpf.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -15,43 +16,7 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
-        <StackPanel>
-            <ListBox 
-                Grid.Column="0"
-                ItemsSource="{Binding Articles}" 
-                SelectedItem="{Binding SelectedArticle}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock FontSize="16" Text="{Binding Title}" />
-                            <TextBlock FontSize="16" Text="{Binding User}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock 
-                Margin="10 0 0 10"
-                FontSize="24" 
-                FontWeight="Black" 
-                Text="{Binding SelectedArticle.Title}" />
-            <TextBlock
-                Grid.Row="1"
-                Margin="10 0 0 10"
-                FontSize="16"
-                FontStyle="Italic"
-                Text="{Binding SelectedArticle.User}" />
-            <TextBlock
-                Grid.Row="2"
-                Margin="10 0 0 10"
-                FontSize="14"
-                Text="{Binding SelectedArticle.Content}" />
-        </Grid>
+        <view:SidebarView DataContext="{Binding SidebarViewModel}" />
+        <view:ArticleDetailView Grid.Column="1" DataContext="{Binding ArticleDetailViewModel}" />
     </Grid>
 </Window>
