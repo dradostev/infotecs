@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Infotecs.Articles.Client.Rpc.Dto;
 using Infotecs.Articles.Client.Rpc.Services;
@@ -29,6 +30,7 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             this.articlesRpcClient = articlesRpcClient;
             this.eventAggregator = eventAggregator;
             this.eventAggregator.GetEvent<ArticleSavedEvent>().Subscribe(OnArticleSaved);
+            this.eventAggregator.GetEvent<ArticleDeletedEvent>().Subscribe(OnArticleDeleted);
             this.CreateArticleCommand = new DelegateCommand(this.OnCreateArticle, () => true);
         }
 
@@ -90,6 +92,12 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         private void OnArticleSaved(ArticleDto article)
         {
             this.Articles.Add(new ArticleViewModel(article));
+        }
+        
+        private void OnArticleDeleted(long articleId)
+        {
+            var deletedArticle = this.Articles.First(x => x.Id == articleId);
+            this.Articles.Remove(deletedArticle);
         }
     }
 }

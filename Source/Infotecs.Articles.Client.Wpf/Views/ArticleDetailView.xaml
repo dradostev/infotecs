@@ -20,11 +20,18 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock 
-            Margin="10 0 0 10"
-            FontSize="24" 
-            FontWeight="Black" 
-            Text="{Binding Article.Title}" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock 
+                Margin="10 0 0 10"
+                FontSize="24" 
+                FontWeight="Black" 
+                Text="{Binding Article.Title}" />
+            <Button
+                Margin="30 0 0 0"
+                Command="{Binding DeleteArticleCommand}"
+                Content="[-] Delete Article" />
+        </StackPanel>
+        
         <TextBlock
             Grid.Row="1"
             Margin="10 0 0 10"
@@ -57,7 +64,7 @@
         <Label Grid.Row="4" FontSize="16" FontWeight="Bold" Content="Author" />
         <TextBox Grid.Row="5" Text="{Binding Comment.Username}" />
         <Label Grid.Row="6" FontSize="16" FontWeight="Bold" Content="Comment Text" />
-        <TextBox 
+        <TextBox
             Grid.Row="7"
             TextWrapping="Wrap"
             AcceptsReturn="True"

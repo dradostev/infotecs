@@ -113,5 +113,15 @@ namespace Infotecs.Articles.Client.Rpc.Services
                 Content = reply.Content,
             };
         }
+
+        /// <inheritdoc/>
+        public void DeleteArticle(long articleId)
+        {
+            using var chan = GrpcChannel.ForAddress(Url);
+
+            var client = new Articles.ArticlesClient(chan);
+
+            client.DeleteArticle(new DeleteArticleRequest { ArticleId = articleId });
+        }
     }
 }

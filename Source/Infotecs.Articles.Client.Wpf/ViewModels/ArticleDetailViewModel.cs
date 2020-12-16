@@ -33,6 +33,7 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             this.eventAggregator = eventAggregator;
             this.eventAggregator.GetEvent<OpenArticleDetailEvent>().Subscribe(this.OnOpenArticleDetail);
             this.AddCommentCommand = new DelegateCommand(OnAddComment);
+            this.DeleteArticleCommand = new DelegateCommand(OnDeleteArticle);
             this.Comment = new CommentViewModel(new CommentDto());
         }
 
@@ -70,9 +71,14 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         }
         
         /// <summary>
-        /// Gets add comment command.
+        /// Gets add Comment command.
         /// </summary>
         public ICommand AddCommentCommand { get; }
+        
+        /// <summary>
+        /// Gets delete Article command.
+        /// </summary>
+        public ICommand DeleteArticleCommand { get; }
         
         /// <summary>
         /// Fetch Article by ID.
@@ -117,6 +123,25 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             {
                 MessageBox.Show(
                     $"Error creating Comment:\n{e.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+        
+        private void OnDeleteArticle()
+        {
+            try
+            {
+                this.articlesRpcClient.DeleteArticle(Article.Id);
+
+                this.eventAggregator.GetEvent<OpenCreateArticleViewEvent>().Publish();
+                this.eventAggregator.GetEvent<ArticleDeletedEvent>().Publish(Article.Id);
+            }
+            catch (RpcException e)
+            {
+                MessageBox.Show(
+                    $"Error deleting Article:\n{e.Message}",
                     "Error",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);

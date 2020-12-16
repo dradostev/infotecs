@@ -38,5 +38,11 @@ namespace Infotecs.Articles.Client.Rpc.Services
         /// <param name="content">Comment text content.</param>
         /// <returns>New Comment.</returns>
         CommentDto AddComment(long articleId, string username, string content);
+
+        /// <summary>
+        /// Delete Article by ID.
+        /// </summary>
+        /// <param name="articleId">Article ID.</param>
+        void DeleteArticle(long articleId);
     }
 }
