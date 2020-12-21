@@ -40,7 +40,7 @@
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Validator for AddCommentRequest.
+        /// Configure Services.
         /// </summary>
         /// <param name="services">Injects Microsoft DI service collection.</param>
         public void ConfigureServices(IServiceCollection services)

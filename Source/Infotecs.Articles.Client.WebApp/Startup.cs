@@ -10,16 +10,29 @@ using Serilog;
 
 namespace Infotecs.Articles.Client.WebApp
 {
+    /// <summary>
+    /// ASP.NET Core startup.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">Configuration injection.</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets configuration.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Configure Services.
+        /// </summary>
+        /// <param name="services">Injects Microsoft DI service collection.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging(builder => builder.AddSerilog());
@@ -29,7 +42,11 @@ namespace Infotecs.Articles.Client.WebApp
             services.AddScoped<IArticlesRpcClient, ArticlesRpcClient>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configure ASP.NET Core services.
+        /// </summary>
+        /// <param name="app">Injects application builder.</param>
+        /// <param name="env">Injects hosting environment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

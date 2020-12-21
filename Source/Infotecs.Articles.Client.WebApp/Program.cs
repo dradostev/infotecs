@@ -10,8 +10,15 @@ using Serilog;
 
 namespace Infotecs.Articles.Client.WebApp
 {
+    /// <summary>
+    /// ASP.NET Core entry point.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method.
+        /// </summary>
+        /// <param name="args">Console arguments.</param>
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
@@ -22,7 +29,7 @@ namespace Infotecs.Articles.Client.WebApp
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
