@@ -84,11 +84,11 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         /// Fetch Article by ID.
         /// </summary>
         /// <param name="articleId">Article ID.</param>
-        public void Load(long articleId)
+        public async void Load(long articleId)
         {
             try
             {
-                var articleReply = this.articlesRpcClient.ShowArticle(articleId);
+                var articleReply = await this.articlesRpcClient.ShowArticleAsync(articleId);
                 this.Article = new ArticleViewModel(articleReply);
             }
             catch (RpcException e)
@@ -106,11 +106,11 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             this.Load(articleId);
         }
         
-        private void OnAddComment()
+        private async void OnAddComment()
         {
             try
             {
-                var commentReply = this.articlesRpcClient.AddComment(
+                var commentReply = await this.articlesRpcClient.AddCommentAsync(
                     Article.Id,
                     Comment.Username,
                     Comment.Content);
@@ -129,11 +129,11 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
             }
         }
         
-        private void OnDeleteArticle()
+        private async void OnDeleteArticle()
         {
             try
             {
-                this.articlesRpcClient.DeleteArticle(Article.Id);
+                await this.articlesRpcClient.DeleteArticleAsync(Article.Id);
 
                 this.eventAggregator.GetEvent<OpenCreateArticleViewEvent>().Publish();
                 this.eventAggregator.GetEvent<ArticleDeletedEvent>().Publish(Article.Id);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Google.Protobuf;
 using Grpc.Net.Client;
 using Infotecs.Articles.Client.Rpc.Dto;
@@ -23,13 +24,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ArticleDto> ListArticles()
+        public async Task<IEnumerable<ArticleDto>> ListArticlesAsync()
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
             var client = new Articles.ArticlesClient(chan);
 
-            var reply = client.ListArticles(new EmptyRequest());
+            var reply = await client.ListArticlesAsync(new EmptyRequest());
 
             return reply.Articles.Select(x => new ArticleDto
             {
@@ -42,13 +43,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
         }
 
         /// <inheritdoc/>
-        public ArticleDto ShowArticle(long articleId)
+        public async Task<ArticleDto> ShowArticleAsync(long articleId)
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
             var client = new Articles.ArticlesClient(chan);
 
-            var reply = client.ShowArticle(new ShowArticleRequest { ArticleId = articleId });
+            var reply = await client.ShowArticleAsync(new ShowArticleRequest { ArticleId = articleId });
 
             return new ArticleDto
             {
@@ -67,13 +68,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
         }
 
         /// <inheritdoc/>
-        public ArticleDto CreateArticle(string username, string title, string content)
+        public async Task<ArticleDto> CreateArticleAsync(string username, string title, string content)
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
             var client = new Articles.ArticlesClient(chan);
 
-            var reply = client.CreateArticle(new CreateArticleRequest
+            var reply = await client.CreateArticleAsync(new CreateArticleRequest
             {
                 User = username,
                 Title = title,
@@ -92,13 +93,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
         }
 
         /// <inheritdoc/>
-        public CommentDto AddComment(long articleId, string username, string content)
+        public async Task<CommentDto> AddCommentAsync(long articleId, string username, string content)
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
             var client = new Articles.ArticlesClient(chan);
 
-            var reply = client.AddComment(new AddCommentRequest
+            var reply = await client.AddCommentAsync(new AddCommentRequest
             {
                 ArticleId = articleId,
                 User = username,
@@ -115,13 +116,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
         }
 
         /// <inheritdoc/>
-        public void DeleteArticle(long articleId)
+        public async Task DeleteArticleAsync(long articleId)
         {
             using var chan = GrpcChannel.ForAddress(Url);
 
             var client = new Articles.ArticlesClient(chan);
 
-            client.DeleteArticle(new DeleteArticleRequest { ArticleId = articleId });
+            await client.DeleteArticleAsync(new DeleteArticleRequest { ArticleId = articleId });
         }
     }
 }

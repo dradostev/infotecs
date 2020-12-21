@@ -72,9 +72,9 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         /// <summary>
         /// Populate MainView model with data from API.
         /// </summary>
-        public void OnLoad()
+        public async void OnLoad()
         {
-            var result = this.articlesRpcClient.ListArticles();
+            var result = await this.articlesRpcClient.ListArticlesAsync();
 
             this.Articles.Clear();
 

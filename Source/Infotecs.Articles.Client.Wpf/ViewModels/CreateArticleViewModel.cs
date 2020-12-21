@@ -58,11 +58,11 @@ namespace Infotecs.Articles.Client.Wpf.ViewModels
         /// </summary>
         public ICommand SaveArticleCommand { get; }
         
-        private void OnSaveArticle()
+        private async void OnSaveArticle()
         {
             try
             {
-                var newArticle = this.articlesRpcClient.CreateArticle(
+                var newArticle = await this.articlesRpcClient.CreateArticleAsync(
                     this.Article.User,
                     this.Article.Title,
                     this.Article.Content);

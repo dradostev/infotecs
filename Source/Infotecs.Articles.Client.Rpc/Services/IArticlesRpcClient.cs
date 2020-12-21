@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infotecs.Articles.Client.Rpc.Dto;
 
 namespace Infotecs.Articles.Client.Rpc.Services
@@ -12,14 +13,14 @@ namespace Infotecs.Articles.Client.Rpc.Services
         /// Fetch Articles list from server.
         /// </summary>
         /// <returns>Enumerable of Articles.</returns>
-        IEnumerable<ArticleDto> ListArticles();
+        Task<IEnumerable<ArticleDto>> ListArticlesAsync();
         
         /// <summary>
         /// Fetch single Article with Comments by ID from server.
         /// </summary>
         /// <param name="articleId">Article ID.</param>
         /// <returns>Article with Comments.</returns>
-        ArticleDto ShowArticle(long articleId);
+        Task<ArticleDto> ShowArticleAsync(long articleId);
 
         /// <summary>
         /// Save newly created Article.
@@ -28,7 +29,7 @@ namespace Infotecs.Articles.Client.Rpc.Services
         /// <param name="title">Article title.</param>
         /// <param name="content">Article text content.</param>
         /// <returns>New Article.</returns>
-        ArticleDto CreateArticle(string username, string title, string content);
+        Task<ArticleDto> CreateArticleAsync(string username, string title, string content);
 
         /// <summary>
         /// Save new Comment for Article.
@@ -37,12 +38,13 @@ namespace Infotecs.Articles.Client.Rpc.Services
         /// <param name="username">Comment author.</param>
         /// <param name="content">Comment text content.</param>
         /// <returns>New Comment.</returns>
-        CommentDto AddComment(long articleId, string username, string content);
+        Task<CommentDto> AddCommentAsync(long articleId, string username, string content);
 
         /// <summary>
         /// Delete Article by ID.
         /// </summary>
         /// <param name="articleId">Article ID.</param>
-        void DeleteArticle(long articleId);
+        /// <returns>Async Task.</returns>
+        Task DeleteArticleAsync(long articleId);
     }
 }
