@@ -1,6 +1,9 @@
 <body>
   <app-nav-menu></app-nav-menu>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
+  <section fxLayout="row" fxLayoutAlign="center stretch">
+    <app-sidebar fxFlex="20"></app-sidebar>
+    <article fxFlex="60">
+      <router-outlet></router-outlet>
+    </article>
+  </section>
 </body>
