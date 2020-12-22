@@ -13,6 +13,9 @@ import { MatListModule } from "@angular/material/list";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ArticleComponent } from './components/article/article.component';
 import { HomeComponent } from './components/home/home.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -20,20 +23,23 @@ import { HomeComponent } from './components/home/home.component';
     NavMenuComponent,
     SidebarComponent,
     ArticleComponent,
-    HomeComponent
+    HomeComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: ':id', component: ArticleComponent }
+      {path: '', component: HomeComponent, pathMatch: 'full'},
+      {path: ':id', component: ArticleComponent}
     ]),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

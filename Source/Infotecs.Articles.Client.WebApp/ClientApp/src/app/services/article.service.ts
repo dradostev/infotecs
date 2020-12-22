@@ -13,4 +13,8 @@ export class ArticleService {
   listArticles(): Observable<Article[]> {
     return this.http.get<Article[]>(this.baseUrl + 'articles');
   }
+
+  showArticle(articleId: number): Observable<Article> {
+    return this.http.get<Article>(this.baseUrl + 'articles/' + articleId);
+  }
 }

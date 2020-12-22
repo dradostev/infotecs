@@ -79,7 +79,7 @@ namespace Infotecs.Articles.Client.WebApp.Controllers
         /// </summary>
         /// <param name="articleId">Article ID.</param>
         /// <returns>No Content Result or NotFound Result.</returns>
-        [HttpGet("{articleId}")]
+        [HttpDelete("{articleId}")]
         public async Task<IActionResult> DeleteArticleAsync(long articleId)
         {
             try
