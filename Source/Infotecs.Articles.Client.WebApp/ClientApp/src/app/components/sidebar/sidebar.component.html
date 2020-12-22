@@ -1,0 +1,9 @@
+<aside>
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="[article.id]" *ngFor="let article of articles">
+      <span mat-line>{{ article.title }}</span>
+      <span mat-line class="mat-small">{{ article.username }}</span>
+      <mat-divider [inset]="true"></mat-divider>
+    </a>
+  </mat-nav-list>
+</aside>
