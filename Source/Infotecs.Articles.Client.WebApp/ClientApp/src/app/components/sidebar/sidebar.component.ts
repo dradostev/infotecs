@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ArticleService} from "../../services/article.service";
-import {Article} from "../../models/Article";
-import {SignalService} from "../../services/signal.service";
+import { Component, OnInit } from '@angular/core'
+import { ArticleService } from '../../services/article.service'
+import { Article } from '../../models/Article'
+import { SignalService } from '../../services/signal.service'
 
 @Component({
   selector: 'app-sidebar',
@@ -11,15 +11,20 @@ import {SignalService} from "../../services/signal.service";
 export class SidebarComponent implements OnInit {
   public articles: Article[];
 
-  constructor(
+  constructor (
     private articleService: ArticleService,
-    private signal: SignalService) { }
+    private signal: SignalService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.signal.connection.on('ArticleCreatedEvent',
-      (e: Article) => this.articles.push(e));
+      (e: Article) => this.articles.push(e))
     this.signal.connection.on('ArticleDeletedEvent',
-      (e: Article) => this.articles = this.articles.filter(x => x.id !== e.id));
-    this.articleService.listArticles().subscribe(x => this.articles = x);
+      (e: Article) => {
+        this.articles = this.articles.filter((x) => x.id !== e.id)
+      })
+    this.articleService.listArticles().subscribe((x) => {
+      this.articles = x
+    })
   }
 }

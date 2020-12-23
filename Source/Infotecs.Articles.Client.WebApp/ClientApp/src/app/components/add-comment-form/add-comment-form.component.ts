@@ -1,5 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Comment} from "../../models/Comment";
+import {
+  Component, EventEmitter, Input, OnInit, Output
+} from '@angular/core'
+import { Comment } from '../../models/Comment'
 
 @Component({
   selector: 'app-add-comment-form',
@@ -8,18 +10,17 @@ import {Comment} from "../../models/Comment";
 })
 export class AddCommentFormComponent implements OnInit {
   @Input() public articleId: number;
+
   @Output() submitComment: EventEmitter<Comment> = new EventEmitter<Comment>();
 
   public comment: Comment = new Comment();
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit () {
   }
 
-  onSubmit() {
-    this.comment.articleId = this.articleId;
-    this.submitComment.emit(this.comment);
-    this.comment = new Comment();
+  onSubmit () {
+    this.comment.articleId = this.articleId
+    this.submitComment.emit(this.comment)
+    this.comment = new Comment()
   }
 }

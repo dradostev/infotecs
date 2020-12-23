@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Article} from "../../models/Article";
-import {ArticleService} from "../../services/article.service";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { Article } from '../../models/Article'
+import { ArticleService } from '../../services/article.service'
 
 @Component({
   selector: 'app-create-article-form',
@@ -11,17 +11,18 @@ import {Router} from "@angular/router";
 export class CreateArticleFormComponent implements OnInit {
   public article: Article = new Article();
 
-  constructor(
+  constructor (
     private articleService: ArticleService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
-  onSubmit() {
+  onSubmit () {
     this.articleService.createArticle(this.article)
-      .subscribe(x => {
+      .subscribe((x) => {
         this.router.navigate(['', x.id])
-      });
+      })
   }
 }
