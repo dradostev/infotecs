@@ -4,8 +4,7 @@ import {ArticleService} from "../../services/article.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
 import {Comment} from "../../models/Comment";
-import {EventBusService} from "../../services/event-bus.service";
-import {EventData} from "../../models/EventData";
+import {SignalService} from "../../services/signal.service";
 
 @Component({
   selector: 'app-article',
@@ -19,7 +18,7 @@ export class ArticleComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
-    private eventBus: EventBusService
+    private signal: SignalService
   ) { }
 
   ngOnInit() {
@@ -28,18 +27,18 @@ export class ArticleComponent implements OnInit {
     );
 
     article.subscribe(x => this.article = x);
+
+    this.signal.connection.on(
+      'CommentAddedEvent', (x: Comment) => this.article.comments.push(x));
   }
 
   onSubmitComment(comment: Comment) {
-    this.articleService.addComment(comment).subscribe(
-      x => this.article.comments.push(x)
-    );
+    this.articleService.addComment(comment).subscribe();
   }
 
   onRemoveArticle() {
     this.articleService.deleteArticle(this.article.id).subscribe(
       () => {
-        this.eventBus.emit(new EventData('ArticleDeleted', this.article.id))
         this.router.navigate(['']);
       }
     )

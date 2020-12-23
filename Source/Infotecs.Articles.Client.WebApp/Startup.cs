@@ -1,4 +1,5 @@
 using Infotecs.Articles.Client.Rpc.Services;
+using Infotecs.Articles.Client.WebApp.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +41,15 @@ namespace Infotecs.Articles.Client.WebApp
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddScoped<IArticlesRpcClient, ArticlesRpcClient>();
+            services.AddSignalR();
+            services.AddCors(options => 
+            { 
+                options.AddPolicy("CorsPolicy", builder => builder
+                    .WithOrigins("*")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()); 
+            });
+            services.AddSingleton<ArticlesHub>();
         }
 
         /// <summary>
@@ -60,6 +70,8 @@ namespace Infotecs.Articles.Client.WebApp
                 app.UseHsts();
             }
 
+            app.UseCors("CorsPolicy");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -74,6 +86,7 @@ namespace Infotecs.Articles.Client.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<ArticlesHub>("/events");
             });
 
             app.UseSpa(spa =>

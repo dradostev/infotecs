@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Infotecs.Articles.Client.Rpc.Dto;
 using Infotecs.Articles.Client.Rpc.Services;
+using Infotecs.Articles.Client.WebApp.Events;
+using Infotecs.Articles.Client.WebApp.Hubs;
 using Infotecs.Articles.Client.WebApp.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,16 +20,22 @@ namespace Infotecs.Articles.Client.WebApp.Controllers
     {
         private readonly IArticlesRpcClient rpcClient;
         private readonly ILogger<ArticlesController> logger;
+        private readonly ArticlesHub hub;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArticlesController"/> class.
         /// </summary>
         /// <param name="rpcClient">RPC client injection.</param>
         /// <param name="logger">Logger injection.</param>
-        public ArticlesController(IArticlesRpcClient rpcClient, ILogger<ArticlesController> logger)
+        /// <param name="hub">SignalR hub injection.</param>
+        public ArticlesController(
+            IArticlesRpcClient rpcClient,
+            ILogger<ArticlesController> logger,
+            ArticlesHub hub)
         {
             this.rpcClient = rpcClient;
             this.logger = logger;
+            this.hub = hub;
         }
 
         /// <summary>
@@ -71,6 +79,14 @@ namespace Infotecs.Articles.Client.WebApp.Controllers
         public async Task<ActionResult<ArticleDto>> CreateArticleAsync([FromBody] CreateArticle request)
         {
             var article = await this.rpcClient.CreateArticleAsync(request.Username, request.Title, request.Content);
+
+            await this.hub.OnArticleCreatedAsync(new ArticleCreatedEvent
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Username = article.Username
+            });
+
             return this.StatusCode(201, article);
         }
 
@@ -85,6 +101,9 @@ namespace Infotecs.Articles.Client.WebApp.Controllers
             try
             {
                 await this.rpcClient.DeleteArticleAsync(articleId);
+
+                await this.hub.OnArticleDeletedAsync(new ArticleDeletedEvent { Id = articleId });
+                
                 return this.NoContent();
             }
             catch (RpcException e)
@@ -106,6 +125,15 @@ namespace Infotecs.Articles.Client.WebApp.Controllers
             try
             {
                 var comment = await this.rpcClient.AddCommentAsync(articleId, request.Username, request.Content);
+
+                await this.hub.OnCommentAddedAsync(new CommentAddedEvent
+                {
+                    CommentId = comment.CommentId,
+                    ArticleId = comment.ArticleId,
+                    Username = comment.Username,
+                    Content = comment.Content
+                });
+                
                 return this.StatusCode(201, comment);
             }
             catch (RpcException e)

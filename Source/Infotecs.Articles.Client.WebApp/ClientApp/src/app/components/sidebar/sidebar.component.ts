@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ArticleService} from "../../services/article.service";
 import {Article} from "../../models/Article";
-import {EventBusService} from "../../services/event-bus.service";
+import {SignalService} from "../../services/signal.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -11,13 +11,15 @@ import {EventBusService} from "../../services/event-bus.service";
 export class SidebarComponent implements OnInit {
   public articles: Article[];
 
-  constructor(private articleService: ArticleService, private eventBus: EventBusService) { }
+  constructor(
+    private articleService: ArticleService,
+    private signal: SignalService) { }
 
   ngOnInit() {
-    this.eventBus.on('ArticleCreated',
-      (payload: Article) => this.articles.push(payload));
-    this.eventBus.on('ArticleDeleted',
-      (payload: number) => this.articles = this.articles.filter(x => x.id !== payload));
+    this.signal.connection.on('ArticleCreatedEvent',
+      (e: Article) => this.articles.push(e));
+    this.signal.connection.on('ArticleDeletedEvent',
+      (e: Article) => this.articles = this.articles.filter(x => x.id !== e.id));
     this.articleService.listArticles().subscribe(x => this.articles = x);
   }
 }

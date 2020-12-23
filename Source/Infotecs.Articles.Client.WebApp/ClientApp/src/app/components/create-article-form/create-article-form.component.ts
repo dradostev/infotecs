@@ -1,8 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Article} from "../../models/Article";
 import {ArticleService} from "../../services/article.service";
-import {EventBusService} from "../../services/event-bus.service";
-import {EventData} from "../../models/EventData";
 import {Router} from "@angular/router";
 
 @Component({
@@ -15,7 +13,6 @@ export class CreateArticleFormComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
-    private eventBus: EventBusService,
     private router: Router) { }
 
   ngOnInit() {
@@ -24,7 +21,6 @@ export class CreateArticleFormComponent implements OnInit {
   onSubmit() {
     this.articleService.createArticle(this.article)
       .subscribe(x => {
-        this.eventBus.emit(new EventData('ArticleCreated', x));
         this.router.navigate(['', x.id])
       });
   }
