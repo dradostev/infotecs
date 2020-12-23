@@ -7,14 +7,10 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from "@angular/material/toolbar";
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { MatListModule } from "@angular/material/list";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ArticleComponent } from './components/article/article.component';
 import { HomeComponent } from './components/home/home.component';
-import {MatCardModule} from "@angular/material/card";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
@@ -35,11 +31,7 @@ import { CommentComponent } from './components/comment/comment.component';
       {path: ':id', component: ArticleComponent}
     ]),
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatListModule,
     FlexLayoutModule,
-    MatCardModule,
-    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

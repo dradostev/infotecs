@@ -1,17 +1,16 @@
-<mat-card>
-  <mat-spinner *ngIf="!article"></mat-spinner>
-  <div *ngIf="article">
-    <mat-card-header>
-      <mat-card-title class="mat-display-1">{{ article.title }}</mat-card-title>
-      <mat-card-subtitle>by {{ article.username }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        {{ article.content }}
-      </p>
-      <p>
-        <app-comment *ngFor="let c of article.comments" [comment]="c"></app-comment>
-      </p>
-    </mat-card-content>
-  </div>
-</mat-card>
+<div class="text-center" *ngIf="!article">
+  <div class="spinner-border text-primary" role="status"></div>
+</div>
+
+<article *ngIf="article">
+  <h1 class="display-3">{{ article.title }}</h1>
+  <h3 class="display-4">by {{ article.username }}</h3>
+  <p>
+    {{ article.content }}
+  </p>
+  <section class="row">
+    <div class="col-sm">
+      <app-comment *ngFor="let c of article.comments" [comment]="c"></app-comment>
+    </div>
+  </section>
+</article>

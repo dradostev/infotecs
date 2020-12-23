@@ -1,9 +1,11 @@
-<aside>
-  <mat-nav-list>
-    <a mat-list-item [routerLink]="[article.id]" *ngFor="let article of articles">
-      <span mat-line>{{ article.title }}</span>
-      <span mat-line class="mat-small">{{ article.username }}</span>
-      <mat-divider [inset]="true"></mat-divider>
-    </a>
-  </mat-nav-list>
-</aside>
+<ul class="list-group">
+  <li class="list-group-item"
+      [routerLink]="[article.id]"
+      [routerLinkActive]="['active']"
+      *ngFor="let article of articles">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ article.title }}</h5>
+    </div>
+    <small>by {{ article.username }}</small>
+  </li>
+</ul>
