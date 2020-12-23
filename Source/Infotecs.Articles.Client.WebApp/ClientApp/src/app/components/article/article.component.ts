@@ -3,6 +3,7 @@ import {Article} from "../../models/Article";
 import {ArticleService} from "../../services/article.service";
 import {ActivatedRoute} from "@angular/router";
 import {switchMap} from "rxjs/operators";
+import {Comment} from "../../models/Comment";
 
 @Component({
   selector: 'app-article',
@@ -25,4 +26,7 @@ export class ArticleComponent implements OnInit {
     article.subscribe(x => this.article = x);
   }
 
+  onSubmitComment(comment: Comment) {
+    this.articleService.addComment(comment).subscribe(x => this.article.comments.push(x));
+  }
 }

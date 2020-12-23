@@ -8,10 +8,10 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { ArticleComponent } from './components/article/article.component';
 import { HomeComponent } from './components/home/home.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { AddCommentFormComponent } from './components/add-comment-form/add-comment-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { CommentComponent } from './components/comment/comment.component';
     SidebarComponent,
     ArticleComponent,
     HomeComponent,
-    CommentComponent
+    CommentComponent,
+    AddCommentFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -31,7 +32,6 @@ import { CommentComponent } from './components/comment/comment.component';
       {path: ':id', component: ArticleComponent}
     ]),
     BrowserAnimationsModule,
-    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,4 +13,11 @@
       <app-comment *ngFor="let c of article.comments" [comment]="c"></app-comment>
     </div>
   </section>
+  <section class="row">
+    <div class="col-sm">
+      <app-add-comment-form
+        [articleId]="article.id"
+        (submitComment)="onSubmitComment($event)"></app-add-comment-form>
+    </div>
+  </section>
 </article>
