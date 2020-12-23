@@ -6,6 +6,9 @@
   <h1 class="display-3">{{ article.title }}</h1>
   <h3 class="display-4">by {{ article.username }}</h3>
   <p>
+    <button (click)="onRemoveArticle()" class="btn btn-danger">Remove Article</button>
+  </p>
+  <p>
     {{ article.content }}
   </p>
   <section class="row">

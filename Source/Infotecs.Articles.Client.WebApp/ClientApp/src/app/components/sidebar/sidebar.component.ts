@@ -14,7 +14,10 @@ export class SidebarComponent implements OnInit {
   constructor(private articleService: ArticleService, private eventBus: EventBusService) { }
 
   ngOnInit() {
-    this.eventBus.on('ArticleCreated', (payload: Article) => this.articles.push(payload));
+    this.eventBus.on('ArticleCreated',
+      (payload: Article) => this.articles.push(payload));
+    this.eventBus.on('ArticleDeleted',
+      (payload: number) => this.articles = this.articles.filter(x => x.id !== payload));
     this.articleService.listArticles().subscribe(x => this.articles = x);
   }
 }
