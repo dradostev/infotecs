@@ -8,7 +8,7 @@ namespace Infotecs.Articles.Client.WebApp.Hubs
     /// SignalR hub for publishing notification events.
     /// </summary>
     public class ArticlesHub : Hub
-    {private 
+    {
         /// <summary>
         /// Fires when article has been created.
         /// </summary>

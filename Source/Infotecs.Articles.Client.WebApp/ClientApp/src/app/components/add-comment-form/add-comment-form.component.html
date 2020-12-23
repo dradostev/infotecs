@@ -3,12 +3,37 @@
     <h2>Write a comment</h2>
     <div class="form-group">
       <label>Author</label>
-      <input [(ngModel)]="comment.username" name="username" type="text" class="form-control" placeholder="Enter your name">
+      <input
+        [(ngModel)]="comment.username"
+        #author="ngModel"
+        required
+        minlength="3"
+        name="username"
+        type="text" class="form-control"
+        placeholder="Enter your name">
+      <p *ngIf="author.invalid && (author.dirty || author.touched)">
+        <small *ngIf="author.errors.required" class="text-danger">Author name is required.</small>
+        <small *ngIf="author.errors.minlength" class="text-danger">Author name must contain 3 or more characters.</small>
+      </p>
     </div>
     <div class="form-group">
       <label>Comment text</label>
-      <textarea [(ngModel)]="comment.content" name="content" class="form-control" placeholder="Enter your comment"></textarea>
+      <textarea
+        [(ngModel)]="comment.content"
+        #content="ngModel"
+        required
+        minlength="10"
+        name="content"
+        class="form-control"
+        placeholder="Enter your comment"></textarea>
+      <p *ngIf="content.invalid && (content.dirty || content.touched)">
+        <small *ngIf="content.errors.required" class="text-danger">Content is required.</small>
+        <small *ngIf="content.errors.minlength" class="text-danger">Content must contain 10 or more characters.</small>
+      </p>
     </div>
-    <button (click)="onSubmit()" class="btn btn-warning">Submit</button>
+    <button
+      (click)="onSubmit()"
+      [disabled]="author.invalid || content.invalid"
+      class="btn btn-warning">Submit</button>
   </form>
 </div>
