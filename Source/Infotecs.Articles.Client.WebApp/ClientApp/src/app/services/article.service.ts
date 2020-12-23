@@ -19,6 +19,14 @@ export class ArticleService {
     return this.http.get<Article>(this.baseUrl + 'articles/' + articleId);
   }
 
+  createArticle(article: Article): Observable<Article> {
+    return this.http.post<Article>(this.baseUrl + 'articles', article);
+  }
+
+  deleteArticle(articleId: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'articles/' + articleId);
+  }
+
   addComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(this.baseUrl + `articles/${comment.articleId}/comments`, comment);
   }

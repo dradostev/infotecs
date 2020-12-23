@@ -12,6 +12,7 @@ import { ArticleComponent } from './components/article/article.component';
 import { HomeComponent } from './components/home/home.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { AddCommentFormComponent } from './components/add-comment-form/add-comment-form.component';
+import { CreateArticleFormComponent } from './components/create-article-form/create-article-form.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AddCommentFormComponent } from './components/add-comment-form/add-comme
     ArticleComponent,
     HomeComponent,
     CommentComponent,
-    AddCommentFormComponent
+    AddCommentFormComponent,
+    CreateArticleFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -29,6 +31,7 @@ import { AddCommentFormComponent } from './components/add-comment-form/add-comme
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
+      {path: 'create-article', component: CreateArticleFormComponent},
       {path: ':id', component: ArticleComponent}
     ]),
     BrowserAnimationsModule,
