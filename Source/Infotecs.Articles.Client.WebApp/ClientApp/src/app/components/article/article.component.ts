@@ -35,10 +35,17 @@ export class ArticleComponent implements OnInit {
     )
   }
 
+  /**
+   * Submit comment
+   * @param {Comment} comment
+   */
   onSubmitComment (comment: Comment) {
     this.articleService.addComment(comment).subscribe()
   }
 
+  /**
+   * Remove Article and navigate to Home page.
+   */
   onRemoveArticle () {
     this.articleService.deleteArticle(this.article.id).subscribe(
       () => {

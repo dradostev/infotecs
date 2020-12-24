@@ -18,6 +18,9 @@ export class AddCommentFormComponent implements OnInit {
   ngOnInit () {
   }
 
+  /**
+   * Submit newly created Comment and clear the form.
+   */
   onSubmit () {
     this.comment.articleId = this.articleId
     this.submitComment.emit(this.comment)

@@ -19,6 +19,9 @@ export class CreateArticleFormComponent implements OnInit {
   ngOnInit () {
   }
 
+  /**
+   * Submit new Article and navigate to newly created Article page.
+   */
   onSubmit () {
     this.articleService.createArticle(this.article)
       .subscribe((x) => {
