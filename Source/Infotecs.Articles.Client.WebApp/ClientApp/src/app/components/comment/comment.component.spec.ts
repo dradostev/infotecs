@@ -16,6 +16,12 @@ describe('CommentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CommentComponent)
     component = fixture.componentInstance
+    component.comment = {
+      commentId: 4,
+      username: 'vasyan',
+      articleId: 2,
+      content: 'That is content'
+    }
     fixture.detectChanges()
   })
 

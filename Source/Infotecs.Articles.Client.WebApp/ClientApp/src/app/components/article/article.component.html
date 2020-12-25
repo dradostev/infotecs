@@ -11,7 +11,7 @@
   <p>
     {{ article.content }}
   </p>
-  <section class="row">
+  <section class="row" *ngIf="article.comments.length > 0">
     <div class="col-sm">
       <app-comment *ngFor="let c of article.comments" [comment]="c"></app-comment>
     </div>

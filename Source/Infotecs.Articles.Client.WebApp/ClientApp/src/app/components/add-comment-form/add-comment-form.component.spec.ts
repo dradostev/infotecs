@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { AddCommentFormComponent } from './add-comment-form.component'
+import { Comment } from '../../models/Comment'
+import { FormsModule } from '@angular/forms'
 
 describe('AddCommentFormComponent', () => {
   let component: AddCommentFormComponent
@@ -8,6 +10,7 @@ describe('AddCommentFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [AddCommentFormComponent]
     })
       .compileComponents()
@@ -21,5 +24,9 @@ describe('AddCommentFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should have empty Comment after creation', () => {
+    expect(component.comment).toEqual(new Comment())
   })
 })
