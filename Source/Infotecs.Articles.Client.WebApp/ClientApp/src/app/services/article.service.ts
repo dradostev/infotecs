@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
-import { Article } from '../models/Article'
-import { Comment } from '../models/Comment'
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Article } from '../models/Article';
+import { Comment } from '../models/Comment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ArticleService {
    * @returns {Observable<Article[]>}
    */
   listArticles (): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.baseUrl}articles`)
+    return this.http.get<Article[]>(`${this.baseUrl}articles`);
   }
 
   /**
@@ -24,7 +24,7 @@ export class ArticleService {
    * @returns {Observable<Article>}
    */
   showArticle (articleId: number): Observable<Article> {
-    return this.http.get<Article>(`${this.baseUrl}articles/${articleId}`)
+    return this.http.get<Article>(`${this.baseUrl}articles/${articleId}`);
   }
 
   /**
@@ -33,7 +33,7 @@ export class ArticleService {
    * @returns {Observable<Article>>}
    */
   createArticle (article: Article): Observable<Article> {
-    return this.http.post<Article>(`${this.baseUrl}articles`, article)
+    return this.http.post<Article>(`${this.baseUrl}articles`, article);
   }
 
   /**
@@ -42,7 +42,7 @@ export class ArticleService {
    * @returns {Observable}
    */
   deleteArticle (articleId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}articles/${articleId}`)
+    return this.http.delete(`${this.baseUrl}articles/${articleId}`);
   }
 
   /**
@@ -51,6 +51,6 @@ export class ArticleService {
    * @returns {Observable<Comment>}
    */
   addComment (comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(`${this.baseUrl}articles/${comment.articleId}/comments`, comment)
+    return this.http.post<Comment>(`${this.baseUrl}articles/${comment.articleId}/comments`, comment);
   }
 }

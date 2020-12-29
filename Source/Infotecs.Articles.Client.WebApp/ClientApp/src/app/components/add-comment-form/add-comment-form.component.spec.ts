@@ -1,32 +1,32 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddCommentFormComponent } from './add-comment-form.component'
-import { Comment } from '../../models/Comment'
-import { FormsModule } from '@angular/forms'
+import { AddCommentFormComponent } from './add-comment-form.component';
+import { Comment } from '../../models/Comment';
+import { FormsModule } from '@angular/forms';
 
 describe('AddCommentFormComponent', () => {
-  let component: AddCommentFormComponent
-  let fixture: ComponentFixture<AddCommentFormComponent>
+  let component: AddCommentFormComponent;
+  let fixture: ComponentFixture<AddCommentFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [AddCommentFormComponent]
     })
-      .compileComponents()
-  }))
+      .compileComponents();
+  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddCommentFormComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    fixture = TestBed.createComponent(AddCommentFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    expect(component).toBeTruthy();
+  });
 
   it('should have empty Comment after creation', () => {
-    expect(component.comment).toEqual(new Comment())
-  })
-})
+    expect(component.comment).toEqual(new Comment());
+  });
+});

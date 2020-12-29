@@ -1,31 +1,31 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommentComponent } from './comment.component'
+import { CommentComponent } from './comment.component';
 
 describe('CommentComponent', () => {
-  let component: CommentComponent
-  let fixture: ComponentFixture<CommentComponent>
+  let component: CommentComponent;
+  let fixture: ComponentFixture<CommentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CommentComponent]
     })
-      .compileComponents()
-  }))
+      .compileComponents();
+  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommentComponent)
-    component = fixture.componentInstance
+    fixture = TestBed.createComponent(CommentComponent);
+    component = fixture.componentInstance;
     component.comment = {
       commentId: 4,
       username: 'vasyan',
       articleId: 2,
       content: 'That is content'
-    }
-    fixture.detectChanges()
-  })
+    };
+    fixture.detectChanges();
+  });
 
   it('should create', () => {
-    expect(component).toBeTruthy()
-  })
-})
+    expect(component).toBeTruthy();
+  });
+});

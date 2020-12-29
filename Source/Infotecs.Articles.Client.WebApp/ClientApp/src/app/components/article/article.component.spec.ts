@@ -1,19 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArticleComponent } from './article.component'
-import { SignalService } from '../../services/signal.service'
-import { ArticleService } from '../../services/article.service'
-import { AddCommentFormComponent } from '../add-comment-form/add-comment-form.component'
-import { HttpClient } from '@angular/common/http'
-import { CommentComponent } from '../comment/comment.component'
-import { FormsModule } from '@angular/forms'
-import { RouterTestingModule } from '@angular/router/testing'
-import { Observable } from 'rxjs'
-import { Article } from '../../models/Article'
+import { ArticleComponent } from './article.component';
+import { SignalService } from '../../services/signal.service';
+import { ArticleService } from '../../services/article.service';
+import { AddCommentFormComponent } from '../add-comment-form/add-comment-form.component';
+import { HttpClient } from '@angular/common/http';
+import { CommentComponent } from '../comment/comment.component';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Observable } from 'rxjs';
+import { Article } from '../../models/Article';
 
 describe('ArticleComponent', () => {
-  let component: ArticleComponent
-  let fixture: ComponentFixture<ArticleComponent>
+  let component: ArticleComponent;
+  let fixture: ComponentFixture<ArticleComponent>;
 
   beforeEach(async(() => {
     const article = {
@@ -35,7 +35,7 @@ describe('ArticleComponent', () => {
           username: 'Author'
         }
       ]
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -58,16 +58,16 @@ describe('ArticleComponent', () => {
         { provide: SignalService, useValue: { connection: { on: (method: string, action: any) => {} } } }
       ]
     })
-      .compileComponents()
-  }))
+      .compileComponents();
+  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArticleComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    fixture = TestBed.createComponent(ArticleComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it('should create', () => {
-    expect(component).toBeTruthy()
-  })
-})
+    expect(component).toBeTruthy();
+  });
+});

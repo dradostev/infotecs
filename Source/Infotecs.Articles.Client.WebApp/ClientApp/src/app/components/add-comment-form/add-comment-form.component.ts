@@ -1,7 +1,7 @@
 import {
   Component, EventEmitter, Input, OnInit, Output
-} from '@angular/core'
-import { Comment } from '../../models/Comment'
+} from '@angular/core';
+import { Comment } from '../../models/Comment';
 
 @Component({
   selector: 'app-add-comment-form',
@@ -22,8 +22,8 @@ export class AddCommentFormComponent implements OnInit {
    * Submit newly created Comment and clear the form.
    */
   onSubmit () {
-    this.comment.articleId = this.articleId
-    this.submitComment.emit(this.comment)
-    this.comment = new Comment()
+    this.comment.articleId = this.articleId;
+    this.submitComment.emit(this.comment);
+    this.comment = new Comment();
   }
 }
